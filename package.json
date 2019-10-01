@@ -1,0 +1,32 @@
+{
+  "name": "stock-bike-shed",
+  "version": "1.0.0",
+  "description": "This is for the Oscar Health Challenge.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tluo9713/StockBikeShed.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tluo9713/StockBikeShed/issues"
+  },
+  "homepage": "https://github.com/tluo9713/StockBikeShed#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1",
+    "react-router-dom": "^5.1.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.2"
+  }
+}
