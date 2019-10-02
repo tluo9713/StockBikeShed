@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 //users not implemented
 router.use('/users', require('./users'));
+router.use('/transactions', require('./transactions'));
 //add more routes as needed
 
 router.use((req, res, next) => {

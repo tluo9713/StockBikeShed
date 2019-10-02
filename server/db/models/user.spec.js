@@ -35,7 +35,6 @@ describe('User model', () => {
       });
 
       it('has salted password', () => {
-        console.log(cody.password);
         expect(cody.password).to.not.be.equal('bones');
       });
     }); // end describe('correctPassword')
