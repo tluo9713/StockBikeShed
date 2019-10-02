@@ -29,6 +29,15 @@ describe('User model', () => {
       it('returns false if the password is incorrect', () => {
         expect(cody.correctPassword('bonez')).to.be.equal(false);
       });
+
+      it('has a default value of 500000', () => {
+        expect(cody.funds).to.be.equal(50000);
+      });
+
+      it('has salted password', () => {
+        console.log(cody.password);
+        expect(cody.password).to.not.be.equal('bones');
+      });
     }); // end describe('correctPassword')
   }); // end describe('instanceMethods')
 }); // end describe('User model')

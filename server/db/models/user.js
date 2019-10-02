@@ -37,7 +37,7 @@ const User = db.define('user', {
   //We are using sequelize integer because if we use float, there would be problems adding certain numbers together. Namely 0.1+0.2 !== 0.3. We can just use integers and divde by 100 to capture the value in cents.
   funds: {
     type: Sequelize.INTEGER,
-    defaultValue: 500000,
+    defaultValue: 50000,
     validate: { min: 0 },
   },
 });
