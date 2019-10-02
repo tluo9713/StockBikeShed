@@ -1,6 +1,8 @@
 const router = require('express').Router();
 // const Transaction = require('../db/models/transaction');
 const { User, Transaction } = require('../db/models');
+const fetch = require('node-fetch');
+const axios = require('axios');
 
 //We want to have routes to be able to grab user info. Such as when they sign in they should be able to see their funds and also edit their information.
 
@@ -52,20 +54,25 @@ router.get('/:id', async (req, res, next) => {
 // })
 
 //Creating a new user route. Destructured because we don't want to take any additional input such as being given additional funds when they shouldn't.
+//ADDTIONAL NOTES: DO NOT TAKE THEIR PURCHASE PRICE: make a api call to grab the price so they can't just give us a false purchase price and buy for lower than actual value.
+//api key : YIEAB87E08BESE7W
+//keep this a secret!
 router.post('/', async (req, res, next) => {
-  const { ticker, shares, purchasePrice, userId } = req.body;
+  const { ticker, shares, userId } = req.body;
   //WARNING destructuring for user ID but in the future will need to do several things:
   //check if there are enough funds else fail transaction
   //grab user id from the request
+  const url = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=';
+  let topSecretApiKey = 'YIEAB87E08BESE7W';
 
-  console.log('this is user id', typeof userId);
+  let stock = await axios.get(`${url}${ticker}&apikey=${topSecretApiKey}`);
+  let purchasePrice = stock['data']['Global Quote']['05. price'] * 100;
   try {
-    // console.log(await Users.findByPk(userId));
     const newTransaction = await Transaction.create({
       ticker,
       shares,
       purchasePrice,
-      userId: 1,
+      userId,
     });
     res.status(201).json(newTransaction);
   } catch (error) {

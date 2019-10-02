@@ -19,15 +19,19 @@
   },
   "homepage": "https://github.com/tluo9713/StockBikeShed#readme",
   "dependencies": {
+    "axios": "^0.19.0",
     "chai": "^4.2.0",
     "express": "^4.17.1",
     "mocha": "^6.2.1",
     "morgan": "^1.9.1",
+    "node-fetch": "^2.6.0",
     "pg": "^7.12.1",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
     "react-router-dom": "^5.1.2",
-    "sequelize": "^5.19.2"
+    "sequelize": "^5.19.2",
+    "supertest": "^4.0.2",
+    "supertest-as-promised": "^4.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
