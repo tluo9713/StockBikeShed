@@ -1,7 +1,5 @@
 const router = require('express').Router();
-// const Transaction = require('../db/models/transaction');
 const { User, Transaction } = require('../db/models');
-const fetch = require('node-fetch');
 const axios = require('axios');
 
 //We want to have routes to be able to grab user info. Such as when they sign in they should be able to see their funds and also edit their information.
