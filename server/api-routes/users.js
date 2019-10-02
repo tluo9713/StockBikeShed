@@ -1,6 +1,9 @@
 const router = require('express').Router();
 const User = require('../db/models/user');
 
+//We want to have routes to be able to grab user info. Such as when they sign in they should be able to see their funds and also edit their information.
+
+//Grab all users, for testing purposes. If planning on keeping this, may need to have some authentication.
 router.get('/', async (req, res, next) => {
   try {
     const allUser = await User.findAll();
@@ -10,6 +13,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+//Grabs a user by their ID. will definitely need to have some security authentication.
 router.get('/:id', async (req, res, next) => {
   const id = req.params.id;
   try {
@@ -44,6 +48,7 @@ router.get('/:id', async (req, res, next) => {
 //   }
 // })
 
+//Creating a new user route. Destructured because we don't want to take any additional input such as being given additional funds when they shouldn't.
 router.post('/', async (req, res, next) => {
   const { email, password, firstName, lastName } = req.body;
   try {
@@ -58,6 +63,9 @@ router.post('/', async (req, res, next) => {
     next(error);
   }
 });
+
+//Will need to create route to edit info. maybe their email, names.
+//Maybe a separate route for adding funds?
 
 // router.put('/:id', async (req, res, next) => {
 //   const {email, firstName, lastName, password} = req.body

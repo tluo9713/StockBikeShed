@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(express.urlencoded({ extended: false }));
 //app.use(express.json());
 
-app.use('/api', require('./apiRoutes'));
+app.use('/api', require('./api-routes'));
 
 app.get('*', (req, res, next) => {
   res.sendFile(path.join(__dirname, '../client/index'));
