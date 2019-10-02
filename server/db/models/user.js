@@ -1,7 +1,10 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 const crypto = require('crypto');
-
+//Creating User Model. User model has email, first name,last name, password and funds.
+//User needs to have email, first name, last name, password.
+//For security, the password has been salted. None of these required values are optional so they'll have a validate not empty set to be true.
+//The default value of funds should be $5000.
 const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
@@ -31,6 +34,7 @@ const User = db.define('user', {
   salt: {
     type: Sequelize.STRING,
   },
+  //We are using sequelize integer because if we use float, there would be problems adding certain numbers together. Namely 0.1+0.2 !== 0.3. We can just use integers and divde by 100 to capture the value in cents.
   funds: {
     type: Sequelize.INTEGER,
     defaultValue: 500000,
