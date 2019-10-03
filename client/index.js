@@ -9,9 +9,9 @@ import App from './app';
 ReactDOM.render(
   // <Provider /* store={store} */>
   //   <Router /* history={history} */>
-  //     <App />,
+  <App />,
   //   </Router>
   // </Provider>,
-  <div> hey</div>,
+  // <div> hey</div>,
   document.getElementById('app')
 );

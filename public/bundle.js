@@ -105,7 +105,7 @@ __webpack_require__.r(__webpack_exports__);
  // import Routes from './routes';
 
 var App = function App() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_TestPage__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ToastContainer, null));
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_TestPage__WEBPACK_IMPORTED_MODULE_1__["default"], null));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
@@ -149,7 +149,7 @@ var HomePage =
 function (_React$Component) {
   _inherits(HomePage, _React$Component);
 
-  function HomePage(props, context) {
+  function HomePage() {
     _classCallCheck(this, HomePage);
 
     return _possibleConstructorReturn(this, _getPrototypeOf(HomePage).call(this));
@@ -195,10 +195,10 @@ __webpack_require__.r(__webpack_exports__);
 
 react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( // <Provider /* store={store} */>
 //   <Router /* history={history} */>
-//     <App />,
-//   </Router>
+react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_app__WEBPACK_IMPORTED_MODULE_5__["default"], null), //   </Router>
 // </Provider>,
-react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, " hey"), document.getElementById('app'));
+// <div> hey</div>,
+document.getElementById('app'));
 
 /***/ }),
 
@@ -44251,7 +44251,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
