@@ -7,32 +7,32 @@ import PropTypes from 'prop-types';
 import { me } from './store';
 
 import SignInPage from './components/SignInPage';
+import SignUpPage from './components/SignUpPage';
 /**
  * COMPONENT
  */
 class Routes extends Component {
   componentDidMount() {
-    this.props.loadInitialData();
+    // this.props.loadInitialData();
   }
 
   render() {
-    const { isLoggedIn } = this.props;
+    // const { isLoggedIn } = this.props;
 
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        {/* <Route path="/login" component={LoginPAge} /> */}
-        {/* <Route path="/signup" component={SignUpPage} /> */}
+        <Route path="/login" component={SignInPage} />
+        <Route path="/signup" component={SignUpPage} />
         {/* <Route exact path="/home" component={Portfolio} /> */}
         {/* <Route exact path="/products/:id(\d+)" component={TransactionHistory} /> */}
-
-        {isLoggedIn && (
+        {/* isLoggedIn && (
           <Switch>
             {/* <Route exact path="/myprofile" component={MyProfile} /> */}
-            {/* Routes placed here are only available after logging in */}
-            {/* <Route path="/home" component={UserHome} /> */}
-          </Switch>
-        )}
+        {/* Routes placed here are only available after logging in */}
+        {/* <Route path="/home" component={UserHome} /> */}
+        {/* </Switch> */}
+        {/* ) */}
         {/* Displays our Login component as a fallback */}
         {/* <Route component={Login} /> */}
         {/* <Route component={SignIn} /> */}
@@ -48,7 +48,7 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id,
+    // isLoggedIn: !!state.user.id,
   };
 };
 
@@ -73,6 +73,6 @@ export default withRouter(
  * PROP TYPES
  */
 Routes.propTypes = {
-  loadInitialData: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
+  // loadInitialData: PropTypes.func.isRequired,
+  // isLoggedIn: PropTypes.bool.isRequired,
 };
