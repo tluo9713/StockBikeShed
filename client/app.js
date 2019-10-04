@@ -8,8 +8,8 @@ const App = () => {
   return (
     <div>
       {/* <Navbar /> */}
-      <Routes />
       <HomePage />
+      <Routes />
       {/* <ToastContainer /> */}
     </div>
   );

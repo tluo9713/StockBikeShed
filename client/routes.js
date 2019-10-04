@@ -8,6 +8,9 @@ import { me } from './store';
 
 import SignInPage from './components/SignInPage';
 import SignUpPage from './components/SignUpPage';
+import Transaction from './components/Transactions';
+import Portfolio from './components/Porfolio';
+
 /**
  * COMPONENT
  */
@@ -24,6 +27,9 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={SignInPage} />
         <Route path="/signup" component={SignUpPage} />
+        <Route path="/portfolio" component={Portfolio} />
+        <Route path="/transaction" component={Transaction} />
+
         {/* <Route exact path="/home" component={Portfolio} /> */}
         {/* <Route exact path="/products/:id(\d+)" component={TransactionHistory} /> */}
         {/* isLoggedIn && (
