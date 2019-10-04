@@ -128,6 +128,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _SignInPage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SignInPage */ "./client/components/SignInPage.js");
 /* harmony import */ var _SignUpPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SignUpPage */ "./client/components/SignUpPage.js");
+/* harmony import */ var _Porfolio__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Porfolio */ "./client/components/Porfolio.js");
+/* harmony import */ var _Transactions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Transactions */ "./client/components/Transactions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -150,6 +152,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+
 var HomePage =
 /*#__PURE__*/
 function (_React$Component) {
@@ -164,7 +168,7 @@ function (_React$Component) {
   _createClass(HomePage, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "HI I'm just starting!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SignUpPage__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "HI I'm just starting!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Transactions__WEBPACK_IMPORTED_MODULE_4__["default"], null));
     }
   }]);
 
@@ -172,6 +176,102 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 
+
+/***/ }),
+
+/***/ "./client/components/Porfolio.js":
+/*!***************************************!*\
+  !*** ./client/components/Porfolio.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Portfolio; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _PortfolioStock__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PortfolioStock */ "./client/components/PortfolioStock.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var Portfolio =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Portfolio, _React$Component);
+
+  function Portfolio() {
+    var _this;
+
+    _classCallCheck(this, Portfolio);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Portfolio).call(this));
+    _this.state = {
+      stocks: [['MSFT', 100], ['APPL', 40]]
+    };
+    return _this;
+  } //grab user info for stocks
+
+
+  _createClass(Portfolio, [{
+    key: "render",
+    value: function render() {
+      var stocks = this.state.stocks;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, stocks.map(function (stock) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PortfolioStock__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          key: stock[0],
+          name: stock[0],
+          amount: stock[1]
+        });
+      }));
+    }
+  }]);
+
+  return Portfolio;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+
+/***/ }),
+
+/***/ "./client/components/PortfolioStock.js":
+/*!*********************************************!*\
+  !*** ./client/components/PortfolioStock.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var PortfolioStock = function PortfolioStock(props) {
+  var name = props.name,
+      amount = props.amount;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Name: ", name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "amount: ", amount));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (PortfolioStock);
 
 /***/ }),
 
@@ -373,6 +473,119 @@ function (_React$Component) {
   }]);
 
   return SignUpPage;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+
+/***/ }),
+
+/***/ "./client/components/TransactionStocks.js":
+/*!************************************************!*\
+  !*** ./client/components/TransactionStocks.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var TransactionStocks = function TransactionStocks(props) {
+  var _props$transaction = props.transaction,
+      name = _props$transaction.name,
+      amount = _props$transaction.amount,
+      purchasePrice = _props$transaction.purchasePrice,
+      time = _props$transaction.time;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Name: ", name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "amount: ", amount), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Price point: ", purchasePrice), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Time : ", time), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Total payment: ", amount * purchasePrice));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (TransactionStocks);
+
+/***/ }),
+
+/***/ "./client/components/Transactions.js":
+/*!*******************************************!*\
+  !*** ./client/components/Transactions.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Tranctions; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _TransactionStocks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TransactionStocks */ "./client/components/TransactionStocks.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var Tranctions =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Tranctions, _React$Component);
+
+  function Tranctions() {
+    var _this;
+
+    _classCallCheck(this, Tranctions);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Tranctions).call(this));
+    _this.state = {
+      transactions: [{
+        name: 'MSFT',
+        amount: '50',
+        purchasePrice: '400',
+        time: '5oclock'
+      }, {
+        name: 'APPL',
+        amount: '50',
+        purchasePrice: '400',
+        time: '4oclock'
+      }, {
+        name: 'MSFT',
+        amount: '40',
+        purchasePrice: '500',
+        time: '3oclock'
+      }]
+    };
+    return _this;
+  } //grab user info for stocks
+
+
+  _createClass(Tranctions, [{
+    key: "render",
+    value: function render() {
+      var transactions = this.state.transactions;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, transactions.map(function (transaction, index) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TransactionStocks__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          key: index,
+          transaction: transaction
+        });
+      }));
+    }
+  }]);
+
+  return Tranctions;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 
@@ -44589,7 +44802,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
