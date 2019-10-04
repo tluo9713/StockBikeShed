@@ -9,9 +9,8 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-//alternatively you can do
-//app.use(express.urlencoded({ extended: false }));
-//app.use(express.json());
+
+app.use('/auth', require('./api-routes/auth'));
 
 app.use('/api', require('./api-routes'));
 
