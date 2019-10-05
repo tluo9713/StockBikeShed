@@ -693,7 +693,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var transactions = this.props.allTransactions;
+      var transactions = this.props.allTransactions.reverse();
       console.log(transactions);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, transactions.map(function (transaction, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TransactionStocks__WEBPACK_IMPORTED_MODULE_1__["default"], {
@@ -1094,7 +1094,7 @@ var me = function me() {
     }()
   );
 };
-var getUserTransaction = function getUserTransaction() {
+var getUserTransaction = function getUserTransaction(id) {
   return (
     /*#__PURE__*/
     function () {
@@ -1108,7 +1108,7 @@ var getUserTransaction = function getUserTransaction() {
               case 0:
                 _context2.prev = 0;
                 _context2.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/transactions/".concat(1));
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/transactions/".concat(id));
 
               case 3:
                 res = _context2.sent;
@@ -1136,7 +1136,7 @@ var getUserTransaction = function getUserTransaction() {
     }()
   );
 };
-var combineTransactions = function combineTransactions() {
+var combineTransactions = function combineTransactions(id) {
   return (
     /*#__PURE__*/
     function () {
@@ -1150,7 +1150,7 @@ var combineTransactions = function combineTransactions() {
               case 0:
                 _context3.prev = 0;
                 _context3.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/transactions/".concat(1));
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/transactions/".concat(id));
 
               case 3:
                 res = _context3.sent;

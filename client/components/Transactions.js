@@ -13,7 +13,7 @@ class Transactions extends React.Component {
     this.props.grabTransactions(this.props.user);
   }
   render() {
-    let transactions = this.props.allTransactions;
+    let transactions = this.props.allTransactions.reverse();
     console.log(transactions);
     return (
       <div>

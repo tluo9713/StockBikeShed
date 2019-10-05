@@ -45,9 +45,9 @@ export const me = () => async dispatch => {
   }
 };
 
-export const getUserTransaction = () => async dispatch => {
+export const getUserTransaction = id => async dispatch => {
   try {
-    const res = await axios.get(`/api/transactions/${1}`);
+    const res = await axios.get(`/api/transactions/${id}`);
     dispatch(getTransaction(res.data || defaultTransaction));
     console.log('fuck yeah');
   } catch (error) {
@@ -55,9 +55,9 @@ export const getUserTransaction = () => async dispatch => {
   }
 };
 
-export const combineTransactions = () => async dispatch => {
+export const combineTransactions = id => async dispatch => {
   try {
-    const res = await axios.get(`/api/transactions/${1}`);
+    const res = await axios.get(`/api/transactions/${id}`);
     const transactions = res.data;
     const combinedObj = {};
     transactions.forEach(element => {
