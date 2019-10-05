@@ -304,11 +304,16 @@ var mapDispatch = function mapDispatch(dispatch, ownProps) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Portfolio; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _PortfolioStock__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PortfolioStock */ "./client/components/PortfolioStock.js");
+/* harmony import */ var _store_transaction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/transaction */ "./client/store/transaction.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -329,29 +334,53 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+
 var Portfolio =
 /*#__PURE__*/
 function (_React$Component) {
   _inherits(Portfolio, _React$Component);
 
   function Portfolio() {
-    var _this;
-
     _classCallCheck(this, Portfolio);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Portfolio).call(this));
-    _this.state = {
-      stocks: [['MSFT', 100], ['APPL', 40]]
-    };
-    return _this;
-  } //grab user info for stocks
-
+    return _possibleConstructorReturn(this, _getPrototypeOf(Portfolio).call(this));
+  }
 
   _createClass(Portfolio, [{
+    key: "componentDidMount",
+    value: function () {
+      var _componentDidMount = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee() {
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return this.props.grabTransactions(this.props.user);
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function componentDidMount() {
+        return _componentDidMount.apply(this, arguments);
+      }
+
+      return componentDidMount;
+    }()
+  }, {
     key: "render",
     value: function render() {
-      var stocks = this.state.stocks;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, stocks.map(function (stock) {
+      console.log('should be rendering', this.props);
+      var combinedArray = this.props.allTransactions;
+      console.log(combinedArray);
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, combinedArray.map(function (stock) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PortfolioStock__WEBPACK_IMPORTED_MODULE_1__["default"], {
           key: stock[0],
           name: stock[0],
@@ -364,7 +393,23 @@ function (_React$Component) {
   return Portfolio;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
+var mapState = function mapState(state) {
+  return {
+    user: state.user,
+    allTransactions: state.transaction || [],
+    combinedArray: state.combinedTransactions || []
+  };
+};
 
+var mapDispatch = function mapDispatch(dispatch) {
+  return {
+    grabTransactions: function grabTransactions(user) {
+      dispatch(Object(_store_transaction__WEBPACK_IMPORTED_MODULE_2__["combineTransactions"])(user.id));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapState, mapDispatch)(Portfolio));
 
 /***/ }),
 
@@ -582,7 +627,8 @@ var TransactionStocks = function TransactionStocks(props) {
       createdAt = _props$transaction.createdAt;
   var time = Date(Date.parse(createdAt)); // console.log(test.toDateString());
 
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Name: ", ticker), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "shares: ", shares), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Price point: ", purchasePrice), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Time : ", time), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Total payment: ", shares * purchasePrice));
+  console.log('stocks', props);
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Name: ", ticker), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "shares: ", shares), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Price point: ", purchasePrice / 100), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Time : ", time), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Total payment: ", shares * purchasePrice / 100));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (TransactionStocks);
@@ -632,30 +678,9 @@ function (_React$Component) {
   _inherits(Transactions, _React$Component);
 
   function Transactions() {
-    var _this;
-
     _classCallCheck(this, Transactions);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Transactions).call(this));
-    _this.state = {
-      transactions: [{
-        name: 'MSFT',
-        amount: '50',
-        purchasePrice: '400',
-        time: '5oclock'
-      }, {
-        name: 'APPL',
-        amount: '50',
-        purchasePrice: '400',
-        time: '4oclock'
-      }, {
-        name: 'MSFT',
-        amount: '40',
-        purchasePrice: '500',
-        time: '3oclock'
-      }]
-    };
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(Transactions).call(this));
   } //grab user info for stocks
 
 
@@ -668,10 +693,8 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log();
       var transactions = this.props.allTransactions;
       console.log(transactions);
-      console.log(this.props);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, transactions.map(function (transaction, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TransactionStocks__WEBPACK_IMPORTED_MODULE_1__["default"], {
           key: index,
@@ -691,7 +714,7 @@ var mapState = function mapState(state) {
   };
 };
 
-var mapDispatch = function mapDispatch(dispatch, ownProps) {
+var mapDispatch = function mapDispatch(dispatch) {
   return {
     grabTransactions: function grabTransactions(user) {
       dispatch(Object(_store_transaction__WEBPACK_IMPORTED_MODULE_3__["getUserTransaction"])(user.id));
@@ -883,7 +906,7 @@ Routes.propTypes = {// loadInitialData: PropTypes.func.isRequired,
 /*!*******************************!*\
   !*** ./client/store/index.js ***!
   \*******************************/
-/*! exports provided: default, me, signUpUser, auth, logout, getUserTransaction, createNewTransaction */
+/*! exports provided: default, me, signUpUser, auth, logout, getUserTransaction, combineTransactions, createNewTransaction */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -906,6 +929,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return _user__WEBPACK_IMPORTED_MODULE_4__["logout"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getUserTransaction", function() { return _transaction__WEBPACK_IMPORTED_MODULE_5__["getUserTransaction"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "combineTransactions", function() { return _transaction__WEBPACK_IMPORTED_MODULE_5__["combineTransactions"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createNewTransaction", function() { return _transaction__WEBPACK_IMPORTED_MODULE_5__["createNewTransaction"]; });
 
@@ -968,13 +993,14 @@ var saveState = function saveState(state) {
 /*!*************************************!*\
   !*** ./client/store/transaction.js ***!
   \*************************************/
-/*! exports provided: me, getUserTransaction, createNewTransaction, default */
+/*! exports provided: me, getUserTransaction, combineTransactions, createNewTransaction, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "me", function() { return me; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUserTransaction", function() { return getUserTransaction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "combineTransactions", function() { return combineTransactions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNewTransaction", function() { return createNewTransaction; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
@@ -990,6 +1016,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var GET_USER_TRANSACTION = 'GET_USER_TRANSACTION';
 var CREATE_NEW_TRANSACTION = 'CREATE_NEW_TRANSACTION';
+var COMBINE_TRANSACTIONS = 'COMBINE_TRANSACTIONS';
 /**
  * INITIAL STATE
  */
@@ -1012,6 +1039,13 @@ var createTransaction = function createTransaction(user, ticker, quantity) {
     user: user,
     ticker: ticker,
     quantity: quantity
+  };
+};
+
+var combineActionCreator = function combineActionCreator(arr) {
+  return {
+    type: COMBINE_TRANSACTIONS,
+    combinedTransactions: arr
   };
 };
 /**
@@ -1079,20 +1113,21 @@ var getUserTransaction = function getUserTransaction() {
               case 3:
                 res = _context2.sent;
                 dispatch(getTransaction(res.data || defaultTransaction));
-                _context2.next = 10;
+                console.log('fuck yeah');
+                _context2.next = 11;
                 break;
 
-              case 7:
-                _context2.prev = 7;
+              case 8:
+                _context2.prev = 8;
                 _context2.t0 = _context2["catch"](0);
                 console.error(_context2.t0);
 
-              case 10:
+              case 11:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 7]]);
+        }, _callee2, null, [[0, 8]]);
       }));
 
       return function (_x2) {
@@ -1101,43 +1136,103 @@ var getUserTransaction = function getUserTransaction() {
     }()
   );
 };
-var createNewTransaction = function createNewTransaction() {
+var combineTransactions = function combineTransactions() {
   return (
     /*#__PURE__*/
     function () {
       var _ref3 = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee3(dispatch) {
-        var res;
+        var res, transactions, combinedObj, combinedArray, ticker;
         return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.prev = 0;
                 _context3.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/transactions");
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/transactions/".concat(1));
 
               case 3:
                 res = _context3.sent;
-                dispatch(createTransaction(res.data || defaultTransaction));
-                _context3.next = 10;
+                transactions = res.data;
+                combinedObj = {};
+                transactions.forEach(function (element) {
+                  if (!combinedObj[element.ticker]) {
+                    combinedObj[element.ticker] = 0;
+                  }
+
+                  combinedObj[element.ticker] += element.shares;
+                }); //convert to array
+
+                combinedArray = [];
+
+                for (ticker in combinedObj) {
+                  if (combinedObj.hasOwnProperty(ticker)) {
+                    combinedArray.push([ticker, combinedObj[ticker]]);
+                  }
+                }
+
+                dispatch(combineActionCreator(combinedArray || []));
+                console.log('fuck yeah');
+                _context3.next = 16;
                 break;
 
-              case 7:
-                _context3.prev = 7;
+              case 13:
+                _context3.prev = 13;
                 _context3.t0 = _context3["catch"](0);
                 console.error(_context3.t0);
 
-              case 10:
+              case 16:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[0, 7]]);
+        }, _callee3, null, [[0, 13]]);
       }));
 
       return function (_x3) {
         return _ref3.apply(this, arguments);
+      };
+    }()
+  );
+};
+var createNewTransaction = function createNewTransaction() {
+  return (
+    /*#__PURE__*/
+    function () {
+      var _ref4 = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee4(dispatch) {
+        var res;
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.prev = 0;
+                _context4.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/transactions");
+
+              case 3:
+                res = _context4.sent;
+                dispatch(createTransaction(res.data || defaultTransaction));
+                _context4.next = 10;
+                break;
+
+              case 7:
+                _context4.prev = 7;
+                _context4.t0 = _context4["catch"](0);
+                console.error(_context4.t0);
+
+              case 10:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, null, [[0, 7]]);
+      }));
+
+      return function (_x4) {
+        return _ref4.apply(this, arguments);
       };
     }()
   );
@@ -1156,6 +1251,9 @@ var createNewTransaction = function createNewTransaction() {
 
     case CREATE_NEW_TRANSACTION:
       return defaultTransaction;
+
+    case COMBINE_TRANSACTIONS:
+      return action.combinedTransactions;
 
     default:
       return state;
