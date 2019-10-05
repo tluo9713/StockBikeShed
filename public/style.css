@@ -1,0 +1,30 @@
+body {
+  font-family: sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* label {
+  display: block;
+} */
+
+nav a {
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 10px;
+}
+
+nav a :hover {
+  color: pink;
+  /* text-decoration: none;
+  text-transform: uppercase;
+  padding: 10px; */
+}
+
+/* form div {
+  margin: 1em;
+  display: inline-block;
+} */

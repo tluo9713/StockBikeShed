@@ -33,18 +33,19 @@ export const me = () => async dispatch => {
 };
 
 export const signUpUser = (
-  email,
-  password,
   firstName,
-  lastName
+  lastName,
+  email,
+  password
 ) => async dispatch => {
   let res;
   try {
+    console.log('store', email);
     res = await axios.post('/api/users', {
-      email,
-      password,
       firstName,
       lastName,
+      email,
+      password,
     });
     console.log('created user', res.data);
   } catch (authError) {
