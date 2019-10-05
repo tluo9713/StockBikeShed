@@ -6,13 +6,6 @@ import { getUserTransaction } from '../store/transaction';
 class Transactions extends React.Component {
   constructor() {
     super();
-    this.state = {
-      transactions: [
-        { name: 'MSFT', amount: '50', purchasePrice: '400', time: '5oclock' },
-        { name: 'APPL', amount: '50', purchasePrice: '400', time: '4oclock' },
-        { name: 'MSFT', amount: '40', purchasePrice: '500', time: '3oclock' },
-      ],
-    };
   }
   //grab user info for stocks
   componentDidMount() {
@@ -20,11 +13,8 @@ class Transactions extends React.Component {
     this.props.grabTransactions(this.props.user);
   }
   render() {
-    console.log();
-    let transactions = this.props.allTransactions;
+    let transactions = this.props.allTransactions.reverse();
     console.log(transactions);
-    console.log(this.props);
-
     return (
       <div>
         {transactions.map((transaction, index) => (
@@ -40,7 +30,7 @@ const mapState = state => ({
   allTransactions: state.transaction || [],
 });
 
-const mapDispatch = (dispatch, ownProps) => {
+const mapDispatch = dispatch => {
   return {
     grabTransactions(user) {
       dispatch(getUserTransaction(user.id));

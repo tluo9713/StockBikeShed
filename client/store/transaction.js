@@ -7,6 +7,7 @@ import axios from 'axios';
 
 const GET_USER_TRANSACTION = 'GET_USER_TRANSACTION';
 const CREATE_NEW_TRANSACTION = 'CREATE_NEW_TRANSACTION';
+const COMBINE_TRANSACTIONS = 'COMBINE_TRANSACTIONS';
 
 /**
  * INITIAL STATE
@@ -27,6 +28,11 @@ const createTransaction = (user, ticker, quantity) => ({
   quantity,
 });
 
+const combineActionCreator = arr => ({
+  type: COMBINE_TRANSACTIONS,
+  combinedTransactions: arr,
+});
+
 /**
  * THUNK CREATORS
  */
@@ -38,10 +44,37 @@ export const me = () => async dispatch => {
     console.error(err);
   }
 };
-export const getUserTransaction = () => async dispatch => {
+
+export const getUserTransaction = id => async dispatch => {
   try {
-    const res = await axios.get(`/api/transactions/${1}`);
+    const res = await axios.get(`/api/transactions/${id}`);
     dispatch(getTransaction(res.data || defaultTransaction));
+    console.log('fuck yeah');
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const combineTransactions = id => async dispatch => {
+  try {
+    const res = await axios.get(`/api/transactions/${id}`);
+    const transactions = res.data;
+    const combinedObj = {};
+    transactions.forEach(element => {
+      if (!combinedObj[element.ticker]) {
+        combinedObj[element.ticker] = 0;
+      }
+      combinedObj[element.ticker] += element.shares;
+    });
+    //convert to array
+    const combinedArray = [];
+    for (let ticker in combinedObj) {
+      if (combinedObj.hasOwnProperty(ticker)) {
+        combinedArray.push([ticker, combinedObj[ticker]]);
+      }
+    }
+    dispatch(combineActionCreator(combinedArray || []));
+    console.log('fuck yeah');
   } catch (error) {
     console.error(error);
   }
@@ -65,6 +98,8 @@ export default function(state = defaultTransaction, action) {
       return action.transaction;
     case CREATE_NEW_TRANSACTION:
       return defaultTransaction;
+    case COMBINE_TRANSACTIONS:
+      return action.combinedTransactions;
     default:
       return state;
   }

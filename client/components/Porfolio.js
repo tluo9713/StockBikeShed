@@ -1,21 +1,46 @@
 import React from 'react';
 import PortfolioStock from './PortfolioStock';
+import { combineTransactions } from '../store/transaction';
+import { connect } from 'react-redux';
 
-export default class Portfolio extends React.Component {
+class Portfolio extends React.Component {
   constructor() {
     super();
-    this.state = { stocks: [['MSFT', 100], ['APPL', 40]] };
   }
-  //grab user info for stocks
+
+  async componentDidMount() {
+    await this.props.grabTransactions(this.props.user);
+  }
 
   render() {
-    let { stocks } = this.state;
+    console.log('should be rendering', this.props);
+    let combinedArray = this.props.allTransactions;
+    console.log(combinedArray);
     return (
       <div>
-        {stocks.map(stock => (
+        {combinedArray.map(stock => (
           <PortfolioStock key={stock[0]} name={stock[0]} amount={stock[1]} />
         ))}
       </div>
     );
   }
 }
+
+const mapState = state => ({
+  user: state.user,
+  allTransactions: state.transaction || [],
+  combinedArray: state.combinedTransactions || [],
+});
+
+const mapDispatch = dispatch => {
+  return {
+    grabTransactions(user) {
+      dispatch(combineTransactions(user.id));
+    },
+  };
+};
+
+export default connect(
+  mapState,
+  mapDispatch
+)(Portfolio);
