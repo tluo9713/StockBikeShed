@@ -1,7 +1,9 @@
 import React from 'react';
 import TransactionStocks from './TransactionStocks';
+import { connect } from 'react-redux';
+import { getUserTransaction } from '../store/transaction';
 
-export default class Tranctions extends React.Component {
+class Transactions extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -13,9 +15,16 @@ export default class Tranctions extends React.Component {
     };
   }
   //grab user info for stocks
-
+  componentDidMount() {
+    console.log('console', this.props.user);
+    this.props.grabTransactions(this.props.user);
+  }
   render() {
-    let { transactions } = this.state;
+    console.log();
+    let transactions = this.props.allTransactions;
+    console.log(transactions);
+    console.log(this.props);
+
     return (
       <div>
         {transactions.map((transaction, index) => (
@@ -25,3 +34,21 @@ export default class Tranctions extends React.Component {
     );
   }
 }
+
+const mapState = state => ({
+  user: state.user,
+  allTransactions: state.transaction || [],
+});
+
+const mapDispatch = (dispatch, ownProps) => {
+  return {
+    grabTransactions(user) {
+      dispatch(getUserTransaction(user.id));
+    },
+  };
+};
+
+export default connect(
+  mapState,
+  mapDispatch
+)(Transactions);

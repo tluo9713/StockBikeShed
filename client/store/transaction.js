@@ -11,12 +11,15 @@ const CREATE_NEW_TRANSACTION = 'CREATE_NEW_TRANSACTION';
 /**
  * INITIAL STATE
  */
-const defaultTransaction = {};
+const defaultTransaction = [];
 
 /**
  * ACTION CREATORS
  */
-const getTransaction = user => ({ type: GET_USER_TRANSACTION, user });
+const getTransaction = transaction => ({
+  type: GET_USER_TRANSACTION,
+  transaction,
+});
 const createTransaction = (user, ticker, quantity) => ({
   type: CREATE_NEW_TRANSACTION,
   user,
@@ -59,7 +62,7 @@ export const createNewTransaction = () => async dispatch => {
 export default function(state = defaultTransaction, action) {
   switch (action.type) {
     case GET_USER_TRANSACTION:
-      return action.user;
+      return action.transaction;
     case CREATE_NEW_TRANSACTION:
       return defaultTransaction;
     default:
