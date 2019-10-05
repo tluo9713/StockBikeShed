@@ -25,6 +25,7 @@ const removeUser = () => ({ type: REMOVE_USER });
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me');
+    console.log('heh');
     dispatch(getUser(res.data || defaultUser));
   } catch (err) {
     console.error(err);
@@ -60,12 +61,14 @@ export const signUpUser = (
 
 export const auth = (email, password, method) => async dispatch => {
   let res;
+  console.log('IM IN STORE', method);
   try {
     res = await axios.post(`/auth/${method}`, { email, password });
   } catch (authError) {
+    console.log('FUCK', authError);
     return dispatch(getUser({ error: authError }));
   }
-
+  console.log('store', res.data);
   try {
     dispatch(getUser(res.data));
     // history.push('/home')

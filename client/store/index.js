@@ -11,7 +11,7 @@ import user from './user';
 import transaction from './transaction';
 
 const reducer = combineReducers({ user, transaction });
-// import { loadState, saveState } from './localStorage';
+import { saveState } from './localStorage';
 
 // What persistedState will be will depend on how we design our state
 // const persistedState = loadState();

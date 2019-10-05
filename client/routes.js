@@ -6,10 +6,11 @@ import PropTypes from 'prop-types';
 
 import { me } from './store';
 
-import SignInPage from './components/SignInPage';
+import SignInPage from './components/LogInPage';
 import SignUpPage from './components/SignUpPage';
 import Transaction from './components/Transactions';
 import Portfolio from './components/Porfolio';
+import ProfilePage from './components/ProfilePage';
 
 /**
  * COMPONENT
@@ -29,6 +30,7 @@ class Routes extends Component {
         <Route path="/signup" component={SignUpPage} />
         <Route path="/portfolio" component={Portfolio} />
         <Route path="/transaction" component={Transaction} />
+        <Route path="/profile" component={ProfilePage} />
 
         {/* <Route exact path="/home" component={Portfolio} /> */}
         {/* <Route exact path="/products/:id(\d+)" component={TransactionHistory} /> */}
