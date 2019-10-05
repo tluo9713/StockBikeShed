@@ -576,11 +576,13 @@ __webpack_require__.r(__webpack_exports__);
 
 var TransactionStocks = function TransactionStocks(props) {
   var _props$transaction = props.transaction,
-      name = _props$transaction.name,
-      amount = _props$transaction.amount,
+      ticker = _props$transaction.ticker,
+      shares = _props$transaction.shares,
       purchasePrice = _props$transaction.purchasePrice,
-      time = _props$transaction.time;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Name: ", name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "amount: ", amount), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Price point: ", purchasePrice), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Time : ", time), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Total payment: ", amount * purchasePrice));
+      createdAt = _props$transaction.createdAt;
+  var time = Date(Date.parse(createdAt)); // console.log(test.toDateString());
+
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Name: ", ticker), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "shares: ", shares), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Price point: ", purchasePrice), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Time : ", time), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Total payment: ", shares * purchasePrice));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (TransactionStocks);
@@ -596,10 +598,11 @@ var TransactionStocks = function TransactionStocks(props) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Tranctions; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _TransactionStocks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TransactionStocks */ "./client/components/TransactionStocks.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_transaction__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/transaction */ "./client/store/transaction.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -621,17 +624,19 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-var Tranctions =
+
+
+var Transactions =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(Tranctions, _React$Component);
+  _inherits(Transactions, _React$Component);
 
-  function Tranctions() {
+  function Transactions() {
     var _this;
 
-    _classCallCheck(this, Tranctions);
+    _classCallCheck(this, Transactions);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Tranctions).call(this));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Transactions).call(this));
     _this.state = {
       transactions: [{
         name: 'MSFT',
@@ -654,10 +659,19 @@ function (_React$Component) {
   } //grab user info for stocks
 
 
-  _createClass(Tranctions, [{
+  _createClass(Transactions, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      console.log('console', this.props.user);
+      this.props.grabTransactions(this.props.user);
+    }
+  }, {
     key: "render",
     value: function render() {
-      var transactions = this.state.transactions;
+      console.log();
+      var transactions = this.props.allTransactions;
+      console.log(transactions);
+      console.log(this.props);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, transactions.map(function (transaction, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TransactionStocks__WEBPACK_IMPORTED_MODULE_1__["default"], {
           key: index,
@@ -667,10 +681,25 @@ function (_React$Component) {
     }
   }]);
 
-  return Tranctions;
+  return Transactions;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
+var mapState = function mapState(state) {
+  return {
+    user: state.user,
+    allTransactions: state.transaction || []
+  };
+};
 
+var mapDispatch = function mapDispatch(dispatch, ownProps) {
+  return {
+    grabTransactions: function grabTransactions(user) {
+      dispatch(Object(_store_transaction__WEBPACK_IMPORTED_MODULE_3__["getUserTransaction"])(user.id));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapState, mapDispatch)(Transactions));
 
 /***/ }),
 
@@ -965,15 +994,15 @@ var CREATE_NEW_TRANSACTION = 'CREATE_NEW_TRANSACTION';
  * INITIAL STATE
  */
 
-var defaultTransaction = {};
+var defaultTransaction = [];
 /**
  * ACTION CREATORS
  */
 
-var getTransaction = function getTransaction(user) {
+var getTransaction = function getTransaction(transaction) {
   return {
     type: GET_USER_TRANSACTION,
-    user: user
+    transaction: transaction
   };
 };
 
@@ -1123,7 +1152,7 @@ var createNewTransaction = function createNewTransaction() {
 
   switch (action.type) {
     case GET_USER_TRANSACTION:
-      return action.user;
+      return action.transaction;
 
     case CREATE_NEW_TRANSACTION:
       return defaultTransaction;
