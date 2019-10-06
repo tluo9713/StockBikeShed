@@ -13,8 +13,18 @@ class Transactions extends React.Component {
     this.props.grabTransactions(this.props.user);
   }
   render() {
-    let transactions = this.props.allTransactions.reverse();
-    console.log(transactions);
+    let { user } = this.props;
+    let transactions = [];
+    if (user.id) {
+      transactions = this.props.transaction.transactionHistory.reverse();
+    }
+    // let transactions = this.props.transaction.transactionHistory;
+    // if (transactions) {
+    //   transactions.reverse();
+    // }
+    // if (transactions)
+    // console.log('transactions', test);
+    // console.log(transactions);
     return (
       <div>
         {transactions.map((transaction, index) => (
@@ -27,7 +37,7 @@ class Transactions extends React.Component {
 
 const mapState = state => ({
   user: state.user,
-  allTransactions: state.transaction || [],
+  transaction: state.transaction || {},
 });
 
 const mapDispatch = dispatch => {
