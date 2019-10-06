@@ -21,11 +21,11 @@ const getTransaction = transaction => ({
   type: GET_USER_TRANSACTION,
   transaction,
 });
-const createTransaction = (ticker, shares) => ({
-  type: CREATE_NEW_TRANSACTION,
-  ticker,
-  shares,
-});
+// const createTransaction = (ticker, shares) => ({
+//   type: CREATE_NEW_TRANSACTION,
+//   ticker,
+//   shares,
+// });
 
 const combineToPortfolio = arr => ({
   type: COMBINE_TRANSACTIONS,
@@ -70,15 +70,12 @@ export const createNewTransaction = (
   shares,
   userId
 ) => async dispatch => {
-  console.log('store got', ticker, shares);
-
   try {
     const res = await axios.post(`/api/transactions`, {
       ticker,
       shares,
       userId,
     });
-    console.log('returned this info', res.data);
 
     dispatch(getUserTransaction(userId));
   } catch (error) {

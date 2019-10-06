@@ -131,10 +131,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -163,42 +159,16 @@ function (_React$Component) {
     _classCallCheck(this, HomePage);
 
     return _possibleConstructorReturn(this, _getPrototypeOf(HomePage).call(this));
-  }
+  } //testing feature for getting persistent user
+  // async handleSubmit() {
+  //   let jesus = await axios.get('/auth/me');
+  //   // let christ = await axios.get('/api/users');
+  //   console.log(jesus);
+  //   // console.log(christ);
+  // }
+
 
   _createClass(HomePage, [{
-    key: "handleSubmit",
-    value: function () {
-      var _handleSubmit = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee() {
-        var jesus;
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/auth/me');
-
-              case 2:
-                jesus = _context.sent;
-                // let christ = await axios.get('/api/users');
-                console.log(jesus); // console.log(christ);
-
-              case 4:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-
-      function handleSubmit() {
-        return _handleSubmit.apply(this, arguments);
-      }
-
-      return handleSubmit;
-    }()
-  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "HI I'm just starting!"));
@@ -843,8 +813,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _TransactionStocks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TransactionStocks */ "./client/components/TransactionStocks.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _PurchaseStocks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PurchaseStocks */ "./client/components/PurchaseStocks.js");
-
 
 
 
@@ -1184,15 +1152,12 @@ var getTransaction = function getTransaction(transaction) {
     type: GET_USER_TRANSACTION,
     transaction: transaction
   };
-};
+}; // const createTransaction = (ticker, shares) => ({
+//   type: CREATE_NEW_TRANSACTION,
+//   ticker,
+//   shares,
+// });
 
-var createTransaction = function createTransaction(ticker, shares) {
-  return {
-    type: CREATE_NEW_TRANSACTION,
-    ticker: ticker,
-    shares: shares
-  };
-};
 
 var combineToPortfolio = function combineToPortfolio(arr) {
   return {
@@ -1281,33 +1246,31 @@ var createNewTransaction = function createNewTransaction(ticker, shares, userId)
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                console.log('store got', ticker, shares);
-                _context2.prev = 1;
-                _context2.next = 4;
+                _context2.prev = 0;
+                _context2.next = 3;
                 return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/transactions", {
                   ticker: ticker,
                   shares: shares,
                   userId: userId
                 });
 
-              case 4:
+              case 3:
                 res = _context2.sent;
-                console.log('returned this info', res.data);
                 dispatch(getUserTransaction(userId));
-                _context2.next = 12;
+                _context2.next = 10;
                 break;
 
-              case 9:
-                _context2.prev = 9;
-                _context2.t0 = _context2["catch"](1);
+              case 7:
+                _context2.prev = 7;
+                _context2.t0 = _context2["catch"](0);
                 console.error(_context2.t0);
 
-              case 12:
+              case 10:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[1, 9]]);
+        }, _callee2, null, [[0, 7]]);
       }));
 
       return function (_x2) {

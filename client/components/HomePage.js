@@ -5,13 +5,14 @@ export default class HomePage extends React.Component {
   constructor() {
     super();
   }
-  async handleSubmit() {
-    let jesus = await axios.get('/auth/me');
-    // let christ = await axios.get('/api/users');
+  //testing feature for getting persistent user
+  // async handleSubmit() {
+  //   let jesus = await axios.get('/auth/me');
+  //   // let christ = await axios.get('/api/users');
 
-    console.log(jesus);
-    // console.log(christ);
-  }
+  //   console.log(jesus);
+  //   // console.log(christ);
+  // }
   render() {
     return (
       <div>

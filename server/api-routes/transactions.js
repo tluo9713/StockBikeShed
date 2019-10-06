@@ -45,16 +45,14 @@ router.post('/', async (req, res, next) => {
   let stock = await axios.get(`${url}${ticker}&apikey=${topSecretApiKey}`);
 
   let purchasePrice = stock['data']['Global Quote']['05. price'] * 100;
-  console.log('fuck');
-  console.log('t', ticker, 's', shares, 'u', userId);
   try {
+    await axios.put(`/api/users/${userId}`, { purchasePrice });
     const newTransaction = await Transaction.create({
       ticker,
       shares,
       purchasePrice,
       userId,
     });
-    console.log(newTransaction);
     res.status(201).json(newTransaction);
   } catch (error) {
     next(error);
@@ -62,34 +60,5 @@ router.post('/', async (req, res, next) => {
 });
 
 //Can't edit transactions buddy!
-
-// router.put('/:id', async (req, res, next) => {
-//   const {email, firstName, lastName, password} = req.body
-//   const id = req.params.id
-
-//   try {
-//     let user = await User.update(
-//       {email, firstName, lastName, password},
-//       {returning: true, where: {id}}
-//     )
-//     res.json(user[1])
-//   } catch (error) {
-//     next(error)
-//   }
-// })
-
-// router.put('/:id/address', async (req, res, next) => {
-//   const id = req.params.id
-//   const {city, state, zipcode, address} = req.body
-//   try {
-//     const updatedAddress = await Address.update(
-//       {city, state, zipcode, address, userId: id},
-//       {returning: true, where: {userId: id}}
-//     )
-//     res.status(201).json(updatedAddress[1])
-//   } catch (error) {
-//     next(error)
-//   }
-// })
 
 module.exports = router;
