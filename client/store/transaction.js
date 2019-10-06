@@ -12,7 +12,7 @@ const COMBINE_TRANSACTIONS = 'COMBINE_TRANSACTIONS';
 /**
  * INITIAL STATE
  */
-const defaultTransaction = [];
+const defaultTransaction = {};
 
 /**
  * ACTION CREATORS
@@ -28,52 +28,39 @@ const createTransaction = (user, ticker, quantity) => ({
   quantity,
 });
 
-const combineActionCreator = arr => ({
+const combineToPortfolio = arr => ({
   type: COMBINE_TRANSACTIONS,
   combinedTransactions: arr,
 });
 
+const combineTransactions = transactionHistory => {
+  const combinedObj = {};
+  transactionHistory.forEach(element => {
+    if (!combinedObj[element.ticker]) {
+      combinedObj[element.ticker] = 0;
+    }
+    combinedObj[element.ticker] += element.shares;
+  });
+  //convert to array
+  const combinedArray = [];
+  for (let ticker in combinedObj) {
+    if (combinedObj.hasOwnProperty(ticker)) {
+      combinedArray.push([ticker, combinedObj[ticker]]);
+    }
+  }
+  return combinedArray;
+};
+
 /**
  * THUNK CREATORS
  */
-export const me = () => async dispatch => {
-  try {
-    const res = await axios.get('/auth/me');
-    dispatch(getUser(res.data || defaultUser));
-  } catch (err) {
-    console.error(err);
-  }
-};
 
 export const getUserTransaction = id => async dispatch => {
   try {
     const res = await axios.get(`/api/transactions/${id}`);
     dispatch(getTransaction(res.data || defaultTransaction));
-    console.log('fuck yeah');
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const combineTransactions = id => async dispatch => {
-  try {
-    const res = await axios.get(`/api/transactions/${id}`);
-    const transactions = res.data;
-    const combinedObj = {};
-    transactions.forEach(element => {
-      if (!combinedObj[element.ticker]) {
-        combinedObj[element.ticker] = 0;
-      }
-      combinedObj[element.ticker] += element.shares;
-    });
-    //convert to array
-    const combinedArray = [];
-    for (let ticker in combinedObj) {
-      if (combinedObj.hasOwnProperty(ticker)) {
-        combinedArray.push([ticker, combinedObj[ticker]]);
-      }
-    }
-    dispatch(combineActionCreator(combinedArray || []));
+    const portfolioStocks = combineTransactions(res.data);
+    dispatch(combineToPortfolio(portfolioStocks));
     console.log('fuck yeah');
   } catch (error) {
     console.error(error);
@@ -95,11 +82,11 @@ export const createNewTransaction = () => async dispatch => {
 export default function(state = defaultTransaction, action) {
   switch (action.type) {
     case GET_USER_TRANSACTION:
-      return action.transaction;
+      return { ...state, transactionHistory: action.transaction };
     case CREATE_NEW_TRANSACTION:
-      return defaultTransaction;
+      return { state };
     case COMBINE_TRANSACTIONS:
-      return action.combinedTransactions;
+      return { ...state, portfolio: action.combinedTransactions };
     default:
       return state;
   }
