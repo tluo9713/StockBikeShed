@@ -14,11 +14,17 @@ class ProfilePage extends React.Component {
   render() {
     console.log(`you're in profile page`);
     console.log('profile page', this.props);
-
+    const { user } = this.props;
     return (
       <div>
-        <h1>You are signed in</h1>
-        <h1>{this.props.user.firstName}</h1>
+        {user.id ? (
+          <div>
+            <h1>You are signed in</h1>
+            <h1>{this.props.user.firstName}</h1>
+          </div>
+        ) : (
+          <h1>NOTLOGGEDIN</h1>
+        )}
       </div>
     );
   }

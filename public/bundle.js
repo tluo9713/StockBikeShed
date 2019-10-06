@@ -469,7 +469,8 @@ function (_React$Component) {
     value: function render() {
       console.log("you're in profile page");
       console.log('profile page', this.props);
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "You are signed in"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, this.props.user.firstName));
+      var user = this.props.user;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, user.id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "You are signed in"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, this.props.user.firstName)) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "NOTLOGGEDIN"));
     }
   }]);
 
