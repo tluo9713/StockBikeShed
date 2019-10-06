@@ -21,11 +21,10 @@ const getTransaction = transaction => ({
   type: GET_USER_TRANSACTION,
   transaction,
 });
-const createTransaction = (user, ticker, quantity) => ({
+const createTransaction = (ticker, shares) => ({
   type: CREATE_NEW_TRANSACTION,
-  user,
   ticker,
-  quantity,
+  shares,
 });
 
 const combineToPortfolio = arr => ({
@@ -66,10 +65,22 @@ export const getUserTransaction = id => async dispatch => {
   }
 };
 
-export const createNewTransaction = () => async dispatch => {
+export const createNewTransaction = (
+  ticker,
+  shares,
+  userId
+) => async dispatch => {
+  console.log('store got', ticker, shares);
+
   try {
-    const res = await axios.post(`/api/transactions`);
-    dispatch(createTransaction(res.data || defaultTransaction));
+    const res = await axios.post(`/api/transactions`, {
+      ticker,
+      shares,
+      userId,
+    });
+    console.log('returned this info', res.data);
+
+    dispatch(getUserTransaction(userId));
   } catch (error) {
     console.error(error);
   }
@@ -83,7 +94,10 @@ export default function(state = defaultTransaction, action) {
     case GET_USER_TRANSACTION:
       return { ...state, transactionHistory: action.transaction };
     case CREATE_NEW_TRANSACTION:
-      return { state };
+      return {
+        ...state,
+        recentPurchase: { ticker: action.ticker, shares: action.shares },
+      };
     case COMBINE_TRANSACTIONS:
       return { ...state, portfolio: action.combinedTransactions };
     default:

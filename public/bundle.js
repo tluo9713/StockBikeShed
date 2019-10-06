@@ -127,9 +127,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return HomePage; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Transactions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Transactions */ "./client/components/Transactions.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -150,7 +154,6 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
 var HomePage =
 /*#__PURE__*/
 function (_React$Component) {
@@ -163,6 +166,39 @@ function (_React$Component) {
   }
 
   _createClass(HomePage, [{
+    key: "handleSubmit",
+    value: function () {
+      var _handleSubmit = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee() {
+        var jesus;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/auth/me');
+
+              case 2:
+                jesus = _context.sent;
+                // let christ = await axios.get('/api/users');
+                console.log(jesus); // console.log(christ);
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      function handleSubmit() {
+        return _handleSubmit.apply(this, arguments);
+      }
+
+      return handleSubmit;
+    }()
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "HI I'm just starting!"));
@@ -360,17 +396,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _PortfolioStock__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PortfolioStock */ "./client/components/PortfolioStock.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _PurchaseStocks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PurchaseStocks */ "./client/components/PurchaseStocks.js");
+
 
 
 
 
 var Portfolio = function Portfolio(props) {
   var portfolioArray = [];
-  var funds;
 
   if (props.user.id) {
     portfolioArray = props.transaction.portfolio;
-    funds = props.user.funds;
   }
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, portfolioArray.map(function (stock) {
@@ -379,7 +415,7 @@ var Portfolio = function Portfolio(props) {
       name: stock[0],
       amount: stock[1]
     });
-  }), funds ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Cash Money : ", funds) : '');
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PurchaseStocks__WEBPACK_IMPORTED_MODULE_3__["default"], null));
 };
 
 var mapState = function mapState(state) {
@@ -498,6 +534,133 @@ var mapDispatch = function mapDispatch(dispatch) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapState, mapDispatch)(ProfilePage));
+
+/***/ }),
+
+/***/ "./client/components/PurchaseStocks.js":
+/*!*********************************************!*\
+  !*** ./client/components/PurchaseStocks.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_transaction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/transaction */ "./client/store/transaction.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+var PurchaseStocks =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(PurchaseStocks, _React$Component);
+
+  function PurchaseStocks() {
+    var _this;
+
+    _classCallCheck(this, PurchaseStocks);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(PurchaseStocks).call(this));
+
+    _defineProperty(_assertThisInitialized(_this), "handleChange", function (event) {
+      var name = event.target.name;
+      var value = event.target.value.toUpperCase();
+
+      _this.setState(_defineProperty({}, name, value));
+    });
+
+    _this.state = {
+      ticker: '',
+      amount: 0
+    };
+    return _this;
+  }
+
+  _createClass(PurchaseStocks, [{
+    key: "render",
+    value: function render() {
+      var funds;
+      var userId = this.props.user.id;
+
+      if (userId) {
+        funds = this.props.user.funds;
+      }
+
+      var transact = this.props.transact;
+      var handleSubmit;
+
+      if (userId) {
+        handleSubmit = transact(userId);
+      }
+
+      console.log('FINALLY LOOK HERE', this.props.transaction);
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, funds ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Cash Money : ", funds) : '', react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        onSubmit: handleSubmit,
+        name: name
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Ticker Name:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        name: "ticker",
+        value: this.state.ticker,
+        onChange: this.handleChange
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Stock Amount:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        name: "amount",
+        value: this.state.amount,
+        onChange: this.handleChange
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, " Purchase"))));
+    }
+  }]);
+
+  return PurchaseStocks;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+var mapState = function mapState(state) {
+  return {
+    user: state.user,
+    transaction: state.transaction || {}
+  };
+};
+
+var mapDispatch = function mapDispatch(dispatch) {
+  return {
+    transact: function transact(userId) {
+      return function (event) {
+        event.preventDefault();
+        console.log(event.target);
+        var ticker = event.target[0].value;
+        var shares = event.target[1].value;
+        console.log(ticker, shares);
+        dispatch(Object(_store_transaction__WEBPACK_IMPORTED_MODULE_2__["createNewTransaction"])(ticker, shares, userId));
+      };
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapState, mapDispatch)(PurchaseStocks));
 
 /***/ }),
 
@@ -680,6 +843,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _TransactionStocks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TransactionStocks */ "./client/components/TransactionStocks.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _PurchaseStocks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PurchaseStocks */ "./client/components/PurchaseStocks.js");
+
 
 
 
@@ -1021,12 +1186,11 @@ var getTransaction = function getTransaction(transaction) {
   };
 };
 
-var createTransaction = function createTransaction(user, ticker, quantity) {
+var createTransaction = function createTransaction(ticker, shares) {
   return {
     type: CREATE_NEW_TRANSACTION,
-    user: user,
     ticker: ticker,
-    quantity: quantity
+    shares: shares
   };
 };
 
@@ -1105,7 +1269,7 @@ var getUserTransaction = function getUserTransaction(id) {
     }()
   );
 };
-var createNewTransaction = function createNewTransaction() {
+var createNewTransaction = function createNewTransaction(ticker, shares, userId) {
   return (
     /*#__PURE__*/
     function () {
@@ -1117,27 +1281,33 @@ var createNewTransaction = function createNewTransaction() {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.prev = 0;
-                _context2.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/transactions");
+                console.log('store got', ticker, shares);
+                _context2.prev = 1;
+                _context2.next = 4;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/transactions", {
+                  ticker: ticker,
+                  shares: shares,
+                  userId: userId
+                });
 
-              case 3:
+              case 4:
                 res = _context2.sent;
-                dispatch(createTransaction(res.data || defaultTransaction));
-                _context2.next = 10;
+                console.log('returned this info', res.data);
+                dispatch(getUserTransaction(userId));
+                _context2.next = 12;
                 break;
 
-              case 7:
-                _context2.prev = 7;
-                _context2.t0 = _context2["catch"](0);
+              case 9:
+                _context2.prev = 9;
+                _context2.t0 = _context2["catch"](1);
                 console.error(_context2.t0);
 
-              case 10:
+              case 12:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 7]]);
+        }, _callee2, null, [[1, 9]]);
       }));
 
       return function (_x2) {
@@ -1161,9 +1331,12 @@ var createNewTransaction = function createNewTransaction() {
       });
 
     case CREATE_NEW_TRANSACTION:
-      return {
-        state: state
-      };
+      return _objectSpread({}, state, {
+        recentPurchase: {
+          ticker: action.ticker,
+          shares: action.shares
+        }
+      });
 
     case COMBINE_TRANSACTIONS:
       return _objectSpread({}, state, {

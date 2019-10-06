@@ -1,6 +1,7 @@
 import React from 'react';
 import TransactionStocks from './TransactionStocks';
 import { connect } from 'react-redux';
+import PurchaseStocks from './PurchaseStocks';
 
 const Transactions = props => {
   let { user } = props;
