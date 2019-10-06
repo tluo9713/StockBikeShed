@@ -3,8 +3,6 @@ import React from 'react';
 const TransactionStocks = props => {
   let { ticker, shares, purchasePrice, createdAt } = props.transaction;
   let time = Date(Date.parse(createdAt));
-  // console.log(test.toDateString());
-  console.log('stocks', props);
   return (
     <div>
       <h1>Name: {ticker}</h1>
