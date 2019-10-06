@@ -12,8 +12,6 @@ export default class HomePage extends React.Component {
       <div>
         <Link to="/portfolio">Porfolio</Link>
         <Link to="/transaction">Transaction History</Link>
-        <Link to="/signup">Sign Up</Link>
-        <Link to="/login">Log In</Link>
 
         <h1>HI I'm just starting!</h1>
         {/* <SignUpPage />

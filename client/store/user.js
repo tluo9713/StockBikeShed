@@ -80,7 +80,7 @@ export const auth = (email, password, method) => async dispatch => {
 
 export const logout = () => async dispatch => {
   try {
-    await axios.post('/auth/logout');
+    // await axios.post('/auth/logout');
     dispatch(removeUser());
     // history.push('/login')
   } catch (err) {
