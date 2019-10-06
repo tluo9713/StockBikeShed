@@ -5,14 +5,24 @@ import { Link } from 'react-router-dom';
 
 const NavBar = props => {
   let { isLoggedIn, handleClick } = props;
-  let firstname = props.user.firstname;
-  console.log('navbar', isLoggedIn);
   return (
     <div>
-      THIS IS THE NAVBAR
-      <Link to="/signup">Sign Up</Link>
-      <Link to="/login">Log In</Link>
-      <button onClick={handleClick}> Logout</button>
+      {isLoggedIn ? (
+        <div>
+          NAVBAR
+          <Link to="/profile">Profile</Link>
+          <Link to="/portfolio">Portfolio</Link>
+          <Link to="/transaction">Transaction History</Link>
+          <button onClick={handleClick}> Logout</button>
+        </div>
+      ) : (
+        <div>
+          NAVBAR
+          <Link to="/profile">Profile</Link>
+          <Link to="/signup">Sign Up</Link>
+          <Link to="/login">Log In</Link>
+        </div>
+      )}
     </div>
   );
 };

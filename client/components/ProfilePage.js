@@ -7,13 +7,13 @@ class ProfilePage extends React.Component {
     super();
   }
   componentDidMount() {
-    console.log('mounting in profile page');
-    this.props.grabTransactions(this.props.user);
+    const { user } = this.props;
+    if (user.id) {
+      this.props.grabTransactions(this.props.user);
+    }
   }
 
   render() {
-    console.log(`you're in profile page`);
-    console.log('profile page', this.props);
     const { user } = this.props;
     return (
       <div>

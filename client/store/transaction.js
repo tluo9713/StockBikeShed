@@ -61,7 +61,6 @@ export const getUserTransaction = id => async dispatch => {
     dispatch(getTransaction(res.data || defaultTransaction));
     const portfolioStocks = combineTransactions(res.data);
     dispatch(combineToPortfolio(portfolioStocks));
-    console.log('fuck yeah');
   } catch (error) {
     console.error(error);
   }

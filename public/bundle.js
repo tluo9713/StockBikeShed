@@ -165,11 +165,7 @@ function (_React$Component) {
   _createClass(HomePage, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-        to: "/portfolio"
-      }, "Porfolio"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-        to: "/transaction"
-      }, "Transaction History"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "HI I'm just starting!"));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "HI I'm just starting!"));
     }
   }]);
 
@@ -314,15 +310,21 @@ __webpack_require__.r(__webpack_exports__);
 var NavBar = function NavBar(props) {
   var isLoggedIn = props.isLoggedIn,
       handleClick = props.handleClick;
-  var firstname = props.user.firstname;
-  console.log('navbar', isLoggedIn);
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "THIS IS THE NAVBAR", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, isLoggedIn ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "NAVBAR", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+    to: "/profile"
+  }, "Profile"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+    to: "/portfolio"
+  }, "Portfolio"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+    to: "/transaction"
+  }, "Transaction History"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    onClick: handleClick
+  }, " Logout")) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "NAVBAR", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+    to: "/profile"
+  }, "Profile"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/signup"
   }, "Sign Up"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/login"
-  }, "Log In"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    onClick: handleClick
-  }, " Logout"));
+  }, "Log In")));
 };
 
 var mapState = function mapState(state) {
@@ -364,9 +366,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var Portfolio = function Portfolio(props) {
   var portfolioArray = [];
+  var funds;
 
   if (props.user.id) {
     portfolioArray = props.transaction.portfolio;
+    funds = props.user.funds;
   }
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, portfolioArray.map(function (stock) {
@@ -375,7 +379,7 @@ var Portfolio = function Portfolio(props) {
       name: stock[0],
       amount: stock[1]
     });
-  }));
+  }), funds ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Cash Money : ", funds) : '');
 };
 
 var mapState = function mapState(state) {
@@ -461,14 +465,15 @@ function (_React$Component) {
   _createClass(ProfilePage, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      console.log('mounting in profile page');
-      this.props.grabTransactions(this.props.user);
+      var user = this.props.user;
+
+      if (user.id) {
+        this.props.grabTransactions(this.props.user);
+      }
     }
   }, {
     key: "render",
     value: function render() {
-      console.log("you're in profile page");
-      console.log('profile page', this.props);
       var user = this.props.user;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, user.id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "You are signed in"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, this.props.user.firstName)) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "NOTLOGGEDIN"));
     }
@@ -654,9 +659,7 @@ var TransactionStocks = function TransactionStocks(props) {
       shares = _props$transaction.shares,
       purchasePrice = _props$transaction.purchasePrice,
       createdAt = _props$transaction.createdAt;
-  var time = Date(Date.parse(createdAt)); // console.log(test.toDateString());
-
-  console.log('stocks', props);
+  var time = Date(Date.parse(createdAt));
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Name: ", ticker), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "shares: ", shares), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Price point: ", purchasePrice / 100), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Time : ", time), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Total payment: ", shares * purchasePrice / 100));
 };
 
@@ -684,6 +687,7 @@ __webpack_require__.r(__webpack_exports__);
 var Transactions = function Transactions(props) {
   var user = props.user;
   var transactions = [];
+  console.log(props);
 
   if (user.id) {
     transactions = props.transaction.transactionHistory.reverse();
@@ -1079,21 +1083,20 @@ var getUserTransaction = function getUserTransaction(id) {
                 dispatch(getTransaction(res.data || defaultTransaction));
                 portfolioStocks = combineTransactions(res.data);
                 dispatch(combineToPortfolio(portfolioStocks));
-                console.log('fuck yeah');
-                _context.next = 13;
+                _context.next = 12;
                 break;
 
-              case 10:
-                _context.prev = 10;
+              case 9:
+                _context.prev = 9;
                 _context.t0 = _context["catch"](0);
                 console.error(_context.t0);
 
-              case 13:
+              case 12:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 10]]);
+        }, _callee, null, [[0, 9]]);
       }));
 
       return function (_x) {
@@ -1246,22 +1249,21 @@ var me = function me() {
 
               case 3:
                 res = _context.sent;
-                console.log('heh');
                 dispatch(getUser(res.data || defaultUser));
-                _context.next = 11;
+                _context.next = 10;
                 break;
 
-              case 8:
-                _context.prev = 8;
+              case 7:
+                _context.prev = 7;
                 _context.t0 = _context["catch"](0);
                 console.error(_context.t0);
 
-              case 11:
+              case 10:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 8]]);
+        }, _callee, null, [[0, 7]]);
       }));
 
       return function (_x) {
@@ -1283,8 +1285,7 @@ var signUpUser = function signUpUser(firstName, lastName, email, password) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.prev = 0;
-                console.log('store', email);
-                _context2.next = 4;
+                _context2.next = 3;
                 return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/users', {
                   firstName: firstName,
                   lastName: lastName,
@@ -1292,33 +1293,31 @@ var signUpUser = function signUpUser(firstName, lastName, email, password) {
                   password: password
                 });
 
-              case 4:
+              case 3:
                 res = _context2.sent;
-                console.log('created user', res.data);
-                _context2.next = 11;
+                _context2.next = 9;
                 break;
 
-              case 8:
-                _context2.prev = 8;
+              case 6:
+                _context2.prev = 6;
                 _context2.t0 = _context2["catch"](0);
                 return _context2.abrupt("return", dispatch(getUser({
                   error: _context2.t0
                 })));
 
-              case 11:
+              case 9:
                 try {
-                  console.log('in sign up user');
                   dispatch(getUser(res.data)); // history.push('/home')
                 } catch (error) {
                   console.error(error);
                 }
 
-              case 12:
+              case 10:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 8]]);
+        }, _callee2, null, [[0, 6]]);
       }));
 
       return function (_x2) {
@@ -1339,42 +1338,38 @@ var auth = function auth(email, password, method) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                console.log('IM IN STORE', method);
-                _context3.prev = 1;
-                _context3.next = 4;
+                _context3.prev = 0;
+                _context3.next = 3;
                 return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/auth/".concat(method), {
                   email: email,
                   password: password
                 });
 
-              case 4:
+              case 3:
                 res = _context3.sent;
-                _context3.next = 11;
+                _context3.next = 9;
                 break;
 
-              case 7:
-                _context3.prev = 7;
-                _context3.t0 = _context3["catch"](1);
-                console.log('FUCK', _context3.t0);
+              case 6:
+                _context3.prev = 6;
+                _context3.t0 = _context3["catch"](0);
                 return _context3.abrupt("return", dispatch(getUser({
                   error: _context3.t0
                 })));
 
-              case 11:
-                console.log('store', res.data);
-
+              case 9:
                 try {
                   dispatch(getUser(res.data)); // history.push('/home')
                 } catch (dispatchOrHistoryErr) {
                   console.error(dispatchOrHistoryErr);
                 }
 
-              case 13:
+              case 10:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[1, 7]]);
+        }, _callee3, null, [[0, 6]]);
       }));
 
       return function (_x3) {
