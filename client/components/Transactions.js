@@ -3,7 +3,6 @@ import TransactionStocks from './TransactionStocks';
 import { connect } from 'react-redux';
 
 const Transactions = props => {
-  let { user } = props;
   let transactions = [];
   if (props.transaction.transactionHistory) {
     transactions = props.transaction.transactionHistory.reverse();

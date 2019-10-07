@@ -35,7 +35,6 @@ router.get('/:id', async (req, res, next) => {
 
 //Creating a new user route. Destructured because we don't want to take any additional input such as being given additional funds when they shouldn't.
 //ADDTIONAL NOTES: DO NOT TAKE THEIR PURCHASE PRICE: make a api call to grab the price so they can't just give us a false purchase price and buy for lower than actual value.
-//api key : YIEAB87E08BESE7W
 //keep this a secret!
 router.post('/', async (req, res, next) => {
   //Grab the userId from the req.session. This is to prevent other users from

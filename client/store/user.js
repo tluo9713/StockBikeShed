@@ -18,7 +18,6 @@ const defaultUser = {};
  * ACTION CREATORS
  */
 const getUser = user => ({ type: GET_USER, user });
-// const createUser = user => ({type: GET_USER, user})
 const removeUser = () => ({ type: REMOVE_USER });
 
 /**
@@ -26,9 +25,14 @@ const removeUser = () => ({ type: REMOVE_USER });
  */
 export const me = () => async dispatch => {
   try {
+    //this thunk will check if user was signed in using the auth route which
+    //check if we can find user in session.
     const res = await axios.get('/auth/me');
+    //dispatch the user
     dispatch(getUser(res.data || defaultUser));
+    //since we have the user, we might as well dispatch the funds on the account
     dispatch(getUserFunds(res.data.funds));
+    //and then grab the transactions from the user based on id
     dispatch(getUserTransaction(res.data.id));
   } catch (err) {
     console.error(err);
@@ -53,9 +57,10 @@ export const signUpUser = (
     return dispatch(getUser({ error: authError }));
   }
   try {
+    //Get user funds after creating an account, no need to grab transactions
+    //as there is not transactions on a new account.
     dispatch(getUserFunds(res.data.funds));
     dispatch(getUser(res.data));
-    // history.push('/home')
   } catch (error) {
     console.error(error);
   }
@@ -63,15 +68,16 @@ export const signUpUser = (
 
 export const auth = (email, password, method) => async dispatch => {
   let res;
+  //this is for signing in
   try {
     res = await axios.post(`/auth/${method}`, { email, password });
   } catch (authError) {
     return dispatch(getUser({ error: authError }));
   }
   try {
+    //if successfully signed in, grab user funds and user into the store.
     dispatch(getUserFunds(res.data.funds));
     dispatch(getUser(res.data));
-    // history.push('/home')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr);
   }
@@ -79,8 +85,8 @@ export const auth = (email, password, method) => async dispatch => {
 
 export const logout = () => async dispatch => {
   try {
+    //user delete route to delete user from session and log out user.
     await axios.delete('/auth/logout');
-    console.log(' i am here right');
     dispatch(removeUser());
     history.push('/login');
   } catch (err) {

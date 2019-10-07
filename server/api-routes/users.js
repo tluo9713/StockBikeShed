@@ -4,14 +4,14 @@ const User = require('../db/models/user');
 //We want to have routes to be able to grab user info. Such as when they sign in they should be able to see their funds and also edit their information.
 
 //Grab all users, for testing purposes. If planning on keeping this, may need to have some authentication.
-router.get('/', async (req, res, next) => {
-  try {
-    const allUser = await User.findAll();
-    res.status(200).json(allUser);
-  } catch (error) {
-    next(error);
-  }
-});
+// router.get('/', async (req, res, next) => {
+//   try {
+//     const allUser = await User.findAll();
+//     res.status(200).json(allUser);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
 //Grabs a user by their ID. will definitely need to have some security authentication.
 router.get('/:id', async (req, res, next) => {

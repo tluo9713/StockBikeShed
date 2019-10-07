@@ -34,6 +34,8 @@ const stockPurchaseError = obj => ({
   error: obj,
 });
 
+//This will grab transaction history and consolidate all stocks with the same
+//name.
 const combineTransactions = transactionHistory => {
   const combinedObj = {};
   transactionHistory.forEach(element => {
@@ -56,11 +58,14 @@ const combineTransactions = transactionHistory => {
  * THUNK CREATORS
  */
 
+//Grab all user transactions
 export const getUserTransaction = id => async dispatch => {
   try {
     const res = await axios.get(`/api/transactions/${id}`);
+    //dispatch transaction
     dispatch(getTransaction(res.data || defaultTransaction));
     const portfolioStocks = combineTransactions(res.data);
+    //use function to consolidate all stocks
     dispatch(combineToPortfolio(portfolioStocks));
   } catch (error) {
     console.error(error);
@@ -81,10 +86,14 @@ export const createNewTransaction = (
     const { purchasePrice } = res.data;
     const amount = res.data.shares;
     const cost = amount * purchasePrice;
+    //Instead of making another call to check the funds in the user account
+    //we already have user funds, so we can just subtract the cost from the
+    //funds in store.
     dispatch(updateUserFunds(cost));
+    //grabs the all user transactions so the front end will display the stock
+    //that was just purchased
     dispatch(getUserTransaction(userId));
   } catch (stockError) {
-    console.log('fuck', stockError);
     dispatch(stockPurchaseError({ error: stockError }));
   }
 };

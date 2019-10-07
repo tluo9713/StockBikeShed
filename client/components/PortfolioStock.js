@@ -14,7 +14,6 @@ class PortfolioStock extends React.Component {
     if (event) {
       event.preventDefault();
     }
-    console.log('clicked');
     const { name } = this.props;
     const url =
       'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=';

@@ -10,7 +10,7 @@ class SignInPage extends React.Component {
       password: '',
     };
   }
-
+  //Controlled state for our forms
   handleChange = event => {
     let name = event.target.name;
     let value = event.target.value;
@@ -21,6 +21,7 @@ class SignInPage extends React.Component {
     let { handleSubmit } = this.props;
     let error;
     if (this.props.user) {
+      //if there's an error, it will display error at the end.
       error = this.props.user.error;
     }
     return (
@@ -68,7 +69,7 @@ const mapDispatch = (dispatch, ownProps) => {
       evt.preventDefault();
       const email = evt.target[0].value;
       const password = evt.target[1].value;
-
+      //attempts to login user
       dispatch(auth(email, password, 'login')).then(() => {
         ownProps.history.push('/profile');
       });

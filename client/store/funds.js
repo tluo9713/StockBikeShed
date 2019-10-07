@@ -1,6 +1,3 @@
-import axios from 'axios';
-// import history from '../history'
-
 /**
  * ACTION TYPES
  */
@@ -21,14 +18,14 @@ const updateFunds = funds => ({ type: UPDATE_FUNDS, funds });
 /**
  * THUNK CREATORS
  */
+//This will initially get the funds from the users and add it to the store.
 export const getUserFunds = funds => async dispatch => {
-  console.log('getting', funds);
   dispatch(getFunds(funds));
 };
 
+//Every update afterwards will be using the update funds because we can just
+//subtract from the funds in the store instead of making another api call.
 export const updateUserFunds = funds => async dispatch => {
-  console.log('updating', funds);
-
   dispatch(updateFunds(funds));
 };
 

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 import { me } from './store';
 
@@ -70,11 +69,3 @@ export default withRouter(
     mapDispatch
   )(Routes)
 );
-
-/**
- * PROP TYPES
- */
-// Routes.propTypes = {
-//   loadInitialData: PropTypes.func.isRequired,
-//   isLoggedIn: PropTypes.bool.isRequired,
-// };
