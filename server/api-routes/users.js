@@ -16,6 +16,7 @@ router.get('/', async (req, res, next) => {
 
 //Grabs a user by their ID. will definitely need to have some security authentication.
 router.get('/:id', async (req, res, next) => {
+  console.log('HITTING THE GET ROUTE');
   const id = req.params.id;
   try {
     const user = await User.findByPk(id);
@@ -48,10 +49,16 @@ router.put('/:id', async (req, res, next) => {
   console.log('DID I GET TO PU ROUTE');
   const { purchasePrice } = req.body;
   const id = req.params.id;
-  let { funds } = await axios.get(`/${id}`);
-  console.log('i found it', funds, purchasePrice);
+  console.log(purchasePrice);
+  let { funds } = await User.findByPk(id);
+
   try {
-    let user = await User.update({}, { returning: true, where: { id } });
+    console.log('i found it', funds, purchasePrice);
+    const fundsAfterPurchase = funds - purchasePrice;
+    let user = await User.update(
+      { funds: fundsAfterPurchase },
+      { returning: true, where: { id } }
+    );
     res.json(user[1]);
   } catch (error) {
     next(error);

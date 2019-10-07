@@ -131,6 +131,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -160,18 +164,47 @@ function (_React$Component) {
 
     return _possibleConstructorReturn(this, _getPrototypeOf(HomePage).call(this));
   } //testing feature for getting persistent user
-  // async handleSubmit() {
-  //   let jesus = await axios.get('/auth/me');
-  //   // let christ = await axios.get('/api/users');
-  //   console.log(jesus);
-  //   // console.log(christ);
-  // }
 
 
   _createClass(HomePage, [{
+    key: "handleSubmit",
+    value: function () {
+      var _handleSubmit = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee() {
+        var jesus;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/users/');
+
+              case 2:
+                jesus = _context.sent;
+                // let christ = await axios.get('/api/users');
+                console.log(jesus); // console.log(christ);
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      function handleSubmit() {
+        return _handleSubmit.apply(this, arguments);
+      }
+
+      return handleSubmit;
+    }()
+  }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "HI I'm just starting!"));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "HI I'm just starting!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.handleSubmit
+      }, " Test"));
     }
   }]);
 
@@ -481,6 +514,7 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       var user = this.props.user;
+      console.log(this.props);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, user.id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "You are signed in"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, this.props.user.firstName)) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "NOTLOGGEDIN"));
     }
   }]);
@@ -571,13 +605,19 @@ function (_React$Component) {
   }
 
   _createClass(PurchaseStocks, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      console.log('updated', this.props.transaction);
+      console.log('statement');
+    }
+  }, {
     key: "render",
     value: function render() {
       var funds;
       var userId = this.props.user.id;
 
       if (userId) {
-        funds = this.props.user.funds;
+        funds = this.props.funds;
       }
 
       var transact = this.props.transact;
@@ -587,8 +627,10 @@ function (_React$Component) {
         handleSubmit = transact(userId);
       }
 
-      console.log('FINALLY LOOK HERE', this.props.transaction);
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, funds ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Cash Money : ", funds) : '', react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      console.log('purchasestockscomponent', funds);
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        key: 'funds'
+      }, funds ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Cash Money : ", funds) : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: handleSubmit,
         name: name
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Ticker Name:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -611,7 +653,8 @@ function (_React$Component) {
 var mapState = function mapState(state) {
   return {
     user: state.user,
-    transaction: state.transaction || {}
+    transaction: state.transaction || {},
+    funds: state.funds || 0
   };
 };
 
@@ -1021,6 +1064,135 @@ Routes.propTypes = {// loadInitialData: PropTypes.func.isRequired,
 
 /***/ }),
 
+/***/ "./client/store/funds.js":
+/*!*******************************!*\
+  !*** ./client/store/funds.js ***!
+  \*******************************/
+/*! exports provided: getUserFunds, updateUserFunds, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUserFunds", function() { return getUserFunds; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateUserFunds", function() { return updateUserFunds; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+ // import history from '../history'
+
+/**
+ * ACTION TYPES
+ */
+
+var GET_FUNDS = 'GET_FUNDS';
+var UPDATE_FUNDS = 'UPDATE_FUNDS';
+/**
+ * INITIAL STATE
+ */
+
+var defaultFunds = 0;
+/**
+ * ACTION CREATORS
+ */
+
+var getFunds = function getFunds(funds) {
+  return {
+    type: GET_FUNDS,
+    funds: funds
+  };
+};
+
+var updateFunds = function updateFunds(funds) {
+  return {
+    type: UPDATE_FUNDS,
+    funds: funds
+  };
+};
+/**
+ * THUNK CREATORS
+ */
+
+
+var getUserFunds = function getUserFunds(funds) {
+  return (
+    /*#__PURE__*/
+    function () {
+      var _ref = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee(dispatch) {
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                dispatch(getFunds(funds));
+
+              case 1:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function (_x) {
+        return _ref.apply(this, arguments);
+      };
+    }()
+  );
+};
+var updateUserFunds = function updateUserFunds(funds) {
+  return (
+    /*#__PURE__*/
+    function () {
+      var _ref2 = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee2(dispatch) {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                console.log('we thunk it', funds);
+                dispatch(updateFunds(funds));
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function (_x2) {
+        return _ref2.apply(this, arguments);
+      };
+    }()
+  );
+};
+/**
+ * REDUCER
+ */
+
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultFunds;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case GET_FUNDS:
+      return action.funds;
+
+    case UPDATE_FUNDS:
+      return state - action.funds;
+
+    default:
+      return state;
+  }
+});
+
+/***/ }),
+
 /***/ "./client/store/index.js":
 /*!*******************************!*\
   !*** ./client/store/index.js ***!
@@ -1038,7 +1210,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux_devtools_extension__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(redux_devtools_extension__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _user__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./user */ "./client/store/user.js");
 /* harmony import */ var _transaction__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./transaction */ "./client/store/transaction.js");
-/* harmony import */ var _localStorage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./localStorage */ "./client/store/localStorage.js");
+/* harmony import */ var _funds__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./funds */ "./client/store/funds.js");
+/* harmony import */ var _localStorage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./localStorage */ "./client/store/localStorage.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "me", function() { return _user__WEBPACK_IMPORTED_MODULE_4__["me"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "signUpUser", function() { return _user__WEBPACK_IMPORTED_MODULE_4__["signUpUser"]; });
@@ -1061,9 +1234,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var reducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   user: _user__WEBPACK_IMPORTED_MODULE_4__["default"],
-  transaction: _transaction__WEBPACK_IMPORTED_MODULE_5__["default"]
+  transaction: _transaction__WEBPACK_IMPORTED_MODULE_5__["default"],
+  funds: _funds__WEBPACK_IMPORTED_MODULE_6__["default"]
 });
  // What persistedState will be will depend on how we design our state
 // const persistedState = loadState();
@@ -1077,7 +1252,7 @@ middleware); // May need to use lodash throttle if system slows down.
 // How often is the store state changing?
 
 store.subscribe(function () {
-  Object(_localStorage__WEBPACK_IMPORTED_MODULE_6__["saveState"])(store.getState());
+  Object(_localStorage__WEBPACK_IMPORTED_MODULE_7__["saveState"])(store.getState());
 });
 /* harmony default export */ __webpack_exports__["default"] = (store);
 
@@ -1119,6 +1294,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNewTransaction", function() { return createNewTransaction; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _funds__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./funds */ "./client/store/funds.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -1128,6 +1304,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
  // import history from '../history'
 
@@ -1241,7 +1418,7 @@ var createNewTransaction = function createNewTransaction(ticker, shares, userId)
       var _ref2 = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee2(dispatch) {
-        var res;
+        var res, purchasePrice, amount, cost;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -1256,21 +1433,27 @@ var createNewTransaction = function createNewTransaction(ticker, shares, userId)
 
               case 3:
                 res = _context2.sent;
+                purchasePrice = res.data.purchasePrice;
+                amount = res.data.shares;
+                cost = amount * purchasePrice;
+                console.log('transction thunk', amount, purchasePrice);
+                console.log('I DEMAND I SEE YOU FUCK', res.data);
+                dispatch(Object(_funds__WEBPACK_IMPORTED_MODULE_1__["updateUserFunds"])(cost));
                 dispatch(getUserTransaction(userId));
-                _context2.next = 10;
+                _context2.next = 16;
                 break;
 
-              case 7:
-                _context2.prev = 7;
+              case 13:
+                _context2.prev = 13;
                 _context2.t0 = _context2["catch"](0);
                 console.error(_context2.t0);
 
-              case 10:
+              case 16:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 7]]);
+        }, _callee2, null, [[0, 13]]);
       }));
 
       return function (_x2) {
@@ -1328,11 +1511,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _funds__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./funds */ "./client/store/funds.js");
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
  // import history from '../history'
+
 
 /**
  * ACTION TYPES
@@ -1495,6 +1680,8 @@ var auth = function auth(email, password, method) {
 
               case 9:
                 try {
+                  console.log('in user', res.data.funds);
+                  dispatch(Object(_funds__WEBPACK_IMPORTED_MODULE_1__["getUserFunds"])(res.data.funds));
                   dispatch(getUser(res.data)); // history.push('/home')
                 } catch (dispatchOrHistoryErr) {
                   console.error(dispatchOrHistoryErr);

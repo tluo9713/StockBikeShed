@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Transaction } = require('../db/models');
+const { Transaction, User } = require('../db/models');
 const axios = require('axios');
 
 //We want to have routes to be able to grab user info. Such as when they sign in they should be able to see their funds and also edit their information.
@@ -40,25 +40,35 @@ router.post('/', async (req, res, next) => {
   //grab user id from the request
   const url = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=';
   let topSecretApiKey = 'YIEAB87E08BESE7W';
-  console.log('fuck ns');
 
-  let stock = await axios.get(`${url}${ticker}&apikey=${topSecretApiKey}`);
-
-  let purchasePrice = stock['data']['Global Quote']['05. price'] * 100;
   try {
-    await axios.put(`/api/users/${userId}`, { purchasePrice });
+    let stock = await axios.get(`${url}${ticker}&apikey=${topSecretApiKey}`);
+    console.log('stock', stock.data);
+    if (stock['data']['Global Quote'] === undefined) {
+      let err = new Error('Could not find Stock');
+      throw err;
+    }
+    let purchasePrice = stock['data']['Global Quote']['05. price'] * 100;
+    let userAccount = await User.findByPk(userId);
+    const fundsAfterPurchase = userAccount.funds - purchasePrice;
+    console.log('price', purchasePrice, 'funds', userAccount.funds);
+    if (fundsAfterPurchase < 0) {
+      let err = new Error('Insufficient Funds');
+      throw err;
+    }
+    // let returnData = await axios.put(`api/users/${userId}`, { purchasePrice });
+    // console.log('returndata', returnData);
     const newTransaction = await Transaction.create({
       ticker,
       shares,
       purchasePrice,
       userId,
     });
+    await User.update({ funds: fundsAfterPurchase }, { where: { id: userId } });
     res.status(201).json(newTransaction);
   } catch (error) {
     next(error);
   }
 });
-
-//Can't edit transactions buddy!
 
 module.exports = router;

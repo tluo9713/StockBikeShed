@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { updateUserFunds } from './funds';
 // import history from '../history'
 
 /**
@@ -76,7 +77,12 @@ export const createNewTransaction = (
       shares,
       userId,
     });
-
+    const { purchasePrice } = res.data;
+    const amount = res.data.shares;
+    const cost = amount * purchasePrice;
+    console.log('transction thunk', amount, purchasePrice);
+    console.log('I DEMAND I SEE YOU FUCK', res.data);
+    dispatch(updateUserFunds(cost));
     dispatch(getUserTransaction(userId));
   } catch (error) {
     console.error(error);

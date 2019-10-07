@@ -8,6 +8,11 @@ class PurchaseStocks extends React.Component {
     this.state = { ticker: '', amount: 0 };
   }
 
+  componentDidUpdate(prevProps) {
+    console.log('updated', this.props.transaction);
+    console.log('statement');
+  }
+
   handleChange = event => {
     let name = event.target.name;
     let value = event.target.value.toUpperCase();
@@ -18,17 +23,17 @@ class PurchaseStocks extends React.Component {
     let funds;
     const userId = this.props.user.id;
     if (userId) {
-      funds = this.props.user.funds;
+      funds = this.props.funds;
     }
     let { transact } = this.props;
     let handleSubmit;
     if (userId) {
       handleSubmit = transact(userId);
     }
-    console.log('FINALLY LOOK HERE', this.props.transaction);
+    console.log('purchasestockscomponent', funds);
     return (
       <div>
-        {funds ? <h2>Cash Money : {funds}</h2> : ''}
+        <div key={'funds'}>{funds ? <h2>Cash Money : {funds}</h2> : ''}</div>
 
         <form onSubmit={handleSubmit} name={name}>
           <div>
@@ -61,6 +66,7 @@ class PurchaseStocks extends React.Component {
 const mapState = state => ({
   user: state.user,
   transaction: state.transaction || {},
+  funds: state.funds || 0,
 });
 
 const mapDispatch = dispatch => ({
