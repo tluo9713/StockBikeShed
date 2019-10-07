@@ -3,7 +3,8 @@ const User = require('../db/models/user');
 
 module.exports = router;
 
-router.get('/me', async (req, res, next) => {
+router.get('/me', (req, res, next) => {
+  console.log('auth', req.session.userId);
   try {
     if (!req.session.userId) {
       const err = new Error('Not found');

@@ -16,6 +16,7 @@ const axios = require('axios');
 
 //Grabs a user by their ID. will definitely need to have some security authentication.
 router.get('/:id', async (req, res, next) => {
+  console.log('routes', req.session.userId);
   const id = req.params.id;
   if (req.session.userId == id) {
     try {
@@ -47,9 +48,7 @@ router.post('/', async (req, res, next) => {
   //will make consolidating same stocks easier.
   ticker = ticker.toUpperCase();
   const url = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=';
-  // let topSecretApiKey = 'YIEAB87E08BESE7W';
-  let topSecretApiKey = 'CR3X96U8FXI8JOAM';
-  // let topSecretApiKey = 'TLQHMXV8OQTWNSOV';
+  let topSecretApiKey = 'U38PY6XXA3QP0MSD';
   try {
     if (shares % 1 != 0) {
       let error = new Error(`You can only purchase whole number quantities`);
