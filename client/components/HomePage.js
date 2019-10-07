@@ -6,18 +6,18 @@ export default class HomePage extends React.Component {
     super();
   }
   //testing feature for getting persistent user
-  async handleSubmit() {
-    let jesus = await axios.get('/api/users/');
-    // let christ = await axios.get('/api/users');
+  // async handleSubmit() {
+  //   let jesus = await axios.get('/api/users/');
+  //   // let christ = await axios.get('/api/users');
 
-    console.log(jesus);
-    // console.log(christ);
-  }
+  //   console.log(jesus);
+  //   // console.log(christ);
+  // }
   render() {
     return (
       <div>
         <h1>HI I'm just starting!</h1>
-        <button onClick={this.handleSubmit}> Test</button>
+        {/* <button onClick={this.handleSubmit}> Test</button> */}
       </div>
     );
   }

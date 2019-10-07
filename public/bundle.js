@@ -131,10 +131,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -164,47 +160,18 @@ function (_React$Component) {
 
     return _possibleConstructorReturn(this, _getPrototypeOf(HomePage).call(this));
   } //testing feature for getting persistent user
+  // async handleSubmit() {
+  //   let jesus = await axios.get('/api/users/');
+  //   // let christ = await axios.get('/api/users');
+  //   console.log(jesus);
+  //   // console.log(christ);
+  // }
 
 
   _createClass(HomePage, [{
-    key: "handleSubmit",
-    value: function () {
-      var _handleSubmit = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee() {
-        var jesus;
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/users/');
-
-              case 2:
-                jesus = _context.sent;
-                // let christ = await axios.get('/api/users');
-                console.log(jesus); // console.log(christ);
-
-              case 4:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-
-      function handleSubmit() {
-        return _handleSubmit.apply(this, arguments);
-      }
-
-      return handleSubmit;
-    }()
-  }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "HI I'm just starting!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        onClick: this.handleSubmit
-      }, " Test"));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "HI I'm just starting!"));
     }
   }]);
 
@@ -514,7 +481,6 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       var user = this.props.user;
-      console.log(this.props);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, user.id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "You are signed in"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, this.props.user.firstName)) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "NOTLOGGEDIN"));
     }
   }]);
@@ -605,12 +571,6 @@ function (_React$Component) {
   }
 
   _createClass(PurchaseStocks, [{
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      console.log('updated', this.props.transaction);
-      console.log('statement');
-    }
-  }, {
     key: "render",
     value: function render() {
       var funds;
@@ -627,7 +587,6 @@ function (_React$Component) {
         handleSubmit = transact(userId);
       }
 
-      console.log('purchasestockscomponent', funds);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         key: 'funds'
       }, funds ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Cash Money : ", funds) : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
@@ -663,10 +622,8 @@ var mapDispatch = function mapDispatch(dispatch) {
     transact: function transact(userId) {
       return function (event) {
         event.preventDefault();
-        console.log(event.target);
         var ticker = event.target[0].value;
         var shares = event.target[1].value;
-        console.log(ticker, shares);
         dispatch(Object(_store_transaction__WEBPACK_IMPORTED_MODULE_2__["createNewTransaction"])(ticker, shares, userId));
       };
     }
@@ -863,7 +820,6 @@ __webpack_require__.r(__webpack_exports__);
 var Transactions = function Transactions(props) {
   var user = props.user;
   var transactions = [];
-  console.log(props);
 
   if (user.id) {
     transactions = props.transaction.transactionHistory.reverse();
@@ -1154,10 +1110,9 @@ var updateUserFunds = function updateUserFunds(funds) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                console.log('we thunk it', funds);
                 dispatch(updateFunds(funds));
 
-              case 2:
+              case 1:
               case "end":
                 return _context2.stop();
             }
@@ -1197,7 +1152,7 @@ var updateUserFunds = function updateUserFunds(funds) {
 /*!*******************************!*\
   !*** ./client/store/index.js ***!
   \*******************************/
-/*! exports provided: default, me, signUpUser, auth, logout, getUserTransaction, createNewTransaction */
+/*! exports provided: default, getUserTransaction, createNewTransaction, me, signUpUser, auth, logout */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1436,24 +1391,22 @@ var createNewTransaction = function createNewTransaction(ticker, shares, userId)
                 purchasePrice = res.data.purchasePrice;
                 amount = res.data.shares;
                 cost = amount * purchasePrice;
-                console.log('transction thunk', amount, purchasePrice);
-                console.log('I DEMAND I SEE YOU FUCK', res.data);
                 dispatch(Object(_funds__WEBPACK_IMPORTED_MODULE_1__["updateUserFunds"])(cost));
                 dispatch(getUserTransaction(userId));
-                _context2.next = 16;
+                _context2.next = 14;
                 break;
 
-              case 13:
-                _context2.prev = 13;
+              case 11:
+                _context2.prev = 11;
                 _context2.t0 = _context2["catch"](0);
                 console.error(_context2.t0);
 
-              case 16:
+              case 14:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 13]]);
+        }, _callee2, null, [[0, 11]]);
       }));
 
       return function (_x2) {
@@ -1628,6 +1581,7 @@ var signUpUser = function signUpUser(firstName, lastName, email, password) {
 
               case 9:
                 try {
+                  dispatch(Object(_funds__WEBPACK_IMPORTED_MODULE_1__["getUserFunds"])(res.data.funds));
                   dispatch(getUser(res.data)); // history.push('/home')
                 } catch (error) {
                   console.error(error);
@@ -1680,7 +1634,6 @@ var auth = function auth(email, password, method) {
 
               case 9:
                 try {
-                  console.log('in user', res.data.funds);
                   dispatch(Object(_funds__WEBPACK_IMPORTED_MODULE_1__["getUserFunds"])(res.data.funds));
                   dispatch(getUser(res.data)); // history.push('/home')
                 } catch (dispatchOrHistoryErr) {

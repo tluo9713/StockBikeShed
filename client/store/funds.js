@@ -26,7 +26,6 @@ export const getUserFunds = funds => async dispatch => {
 };
 
 export const updateUserFunds = funds => async dispatch => {
-  console.log('we thunk it', funds);
   dispatch(updateFunds(funds));
 };
 

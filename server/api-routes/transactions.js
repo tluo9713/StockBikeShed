@@ -32,7 +32,6 @@ router.get('/:id', async (req, res, next) => {
 //api key : YIEAB87E08BESE7W
 //keep this a secret!
 router.post('/', async (req, res, next) => {
-  console.log('post route got hit');
   let { ticker, shares, userId } = req.body;
   ticker = ticker.toUpperCase();
   //WARNING destructuring for user ID but in the future will need to do several things:
@@ -43,7 +42,6 @@ router.post('/', async (req, res, next) => {
 
   try {
     let stock = await axios.get(`${url}${ticker}&apikey=${topSecretApiKey}`);
-    console.log('stock', stock.data);
     if (stock['data']['Global Quote'] === undefined) {
       let err = new Error('Could not find Stock');
       throw err;
@@ -51,7 +49,6 @@ router.post('/', async (req, res, next) => {
     let purchasePrice = stock['data']['Global Quote']['05. price'] * 100;
     let userAccount = await User.findByPk(userId);
     const fundsAfterPurchase = userAccount.funds - purchasePrice;
-    console.log('price', purchasePrice, 'funds', userAccount.funds);
     if (fundsAfterPurchase < 0) {
       let err = new Error('Insufficient Funds');
       throw err;

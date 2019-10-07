@@ -8,11 +8,6 @@ class PurchaseStocks extends React.Component {
     this.state = { ticker: '', amount: 0 };
   }
 
-  componentDidUpdate(prevProps) {
-    console.log('updated', this.props.transaction);
-    console.log('statement');
-  }
-
   handleChange = event => {
     let name = event.target.name;
     let value = event.target.value.toUpperCase();
@@ -30,7 +25,6 @@ class PurchaseStocks extends React.Component {
     if (userId) {
       handleSubmit = transact(userId);
     }
-    console.log('purchasestockscomponent', funds);
     return (
       <div>
         <div key={'funds'}>{funds ? <h2>Cash Money : {funds}</h2> : ''}</div>
@@ -72,11 +66,9 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   transact: userId => event => {
     event.preventDefault();
-    console.log(event.target);
 
     const ticker = event.target[0].value;
     const shares = event.target[1].value;
-    console.log(ticker, shares);
     dispatch(createNewTransaction(ticker, shares, userId));
   },
 });

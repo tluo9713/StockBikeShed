@@ -16,7 +16,6 @@ router.get('/', async (req, res, next) => {
 
 //Grabs a user by their ID. will definitely need to have some security authentication.
 router.get('/:id', async (req, res, next) => {
-  console.log('HITTING THE GET ROUTE');
   const id = req.params.id;
   try {
     const user = await User.findByPk(id);
@@ -46,14 +45,11 @@ router.post('/', async (req, res, next) => {
 //Maybe a separate route for adding funds?
 
 router.put('/:id', async (req, res, next) => {
-  console.log('DID I GET TO PU ROUTE');
   const { purchasePrice } = req.body;
   const id = req.params.id;
-  console.log(purchasePrice);
   let { funds } = await User.findByPk(id);
 
   try {
-    console.log('i found it', funds, purchasePrice);
     const fundsAfterPurchase = funds - purchasePrice;
     let user = await User.update(
       { funds: fundsAfterPurchase },
