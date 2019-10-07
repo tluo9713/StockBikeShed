@@ -1,6 +1,7 @@
 import axios from 'axios';
-// import history from '../history'
+import history from '../history';
 import { getUserFunds } from './funds';
+import { getUserTransaction } from './transaction';
 
 /**
  * ACTION TYPES
@@ -27,6 +28,8 @@ export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me');
     dispatch(getUser(res.data || defaultUser));
+    dispatch(getUserFunds(res.data.funds));
+    dispatch(getUserTransaction(res.data.id));
   } catch (err) {
     console.error(err);
   }
@@ -76,9 +79,10 @@ export const auth = (email, password, method) => async dispatch => {
 
 export const logout = () => async dispatch => {
   try {
-    // await axios.post('/auth/logout');
+    await axios.delete('/auth/logout');
+    console.log(' i am here right');
     dispatch(removeUser());
-    // history.push('/login')
+    history.push('/login');
   } catch (err) {
     console.error(err);
   }

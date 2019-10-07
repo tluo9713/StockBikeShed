@@ -5,7 +5,7 @@ import PurchaseStocks from './PurchaseStocks';
 
 const Portfolio = props => {
   let portfolioArray = [];
-  if (props.user.id) {
+  if (props.transaction.portfolio) {
     portfolioArray = props.transaction.portfolio;
   }
   return (

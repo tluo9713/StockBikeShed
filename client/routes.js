@@ -17,7 +17,7 @@ import ProfilePage from './components/ProfilePage';
  */
 class Routes extends Component {
   componentDidMount() {
-    // this.props.loadInitialData();
+    this.props.loadInitialData();
   }
 
   render() {
