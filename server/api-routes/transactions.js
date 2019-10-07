@@ -37,37 +37,41 @@ router.post('/', async (req, res, next) => {
   let { userId } = req.session;
   //Ticker and shares will be sent from the user side.
   let { ticker, shares } = req.body;
+
   //If by some reason ticker isn't to upper case yet, make it uppercase. This
   //will make consolidating same stocks easier.
   ticker = ticker.toUpperCase();
   const url = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=';
-  let topSecretApiKey = 'YIEAB87E08BESE7W';
+  // let topSecretApiKey = 'YIEAB87E08BESE7W';
+  let topSecretApiKey = 'CR3X96U8FXI8JOAM';
 
   try {
+    if (shares % 1 != 0) {
+      let error = new Error(`You can only purchase whole number quantities`);
+      error.status = 404;
+      throw error;
+    }
     let stock = await axios.get(`${url}${ticker}&apikey=${topSecretApiKey}`);
-    // console.log('start');
-    // let test = await axios.get('/api/users');
-    // console.log(test);
     if (stock['data']['Global Quote'] === undefined) {
       let err = new Error('Could not find Stock');
+      err.status = 404;
       throw err;
     }
     //We want to make sure stock price is an integer or else we will fail
     //sequelize validations
-    let purchasePrice = parseInt(
+    const purchasePrice = parseInt(
       stock['data']['Global Quote']['05. price'] * 100000
     );
-
+    const totalCost = shares * purchasePrice;
     let userAccount = await User.findByPk(userId);
 
-    const fundsAfterPurchase = userAccount.funds - purchasePrice;
+    const fundsAfterPurchase = userAccount.funds - totalCost;
     //check if there are enough funds else fail transaction
     if (fundsAfterPurchase < 0) {
       let err = new Error('Insufficient Funds');
+      err.status = 404;
       throw err;
     }
-    // let returnData = await axios.put(`api/users/${userId}`, { purchasePrice });
-    // console.log('returndata', returnData);
     const newTransaction = await Transaction.create({
       ticker,
       shares,

@@ -25,6 +25,12 @@ class PurchaseStocks extends React.Component {
     if (userId) {
       handleSubmit = transact(userId);
     }
+    let error;
+    console.log('component', this.props.transaction);
+    if (this.props.transaction.error) {
+      error = this.props.transaction.error.error;
+      console.log(error);
+    }
     return (
       <div>
         <div key={'funds'}>{funds ? <h2>Cash Money : ${funds}</h2> : ''}</div>
@@ -52,6 +58,7 @@ class PurchaseStocks extends React.Component {
             <button> Purchase</button>
           </div>
         </form>
+        {error && error.response && <div> {error.response.data} </div>}
       </div>
     );
   }

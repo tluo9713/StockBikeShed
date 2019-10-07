@@ -9,6 +9,7 @@ import { updateUserFunds } from './funds';
 const GET_USER_TRANSACTION = 'GET_USER_TRANSACTION';
 const CREATE_NEW_TRANSACTION = 'CREATE_NEW_TRANSACTION';
 const COMBINE_TRANSACTIONS = 'COMBINE_TRANSACTIONS';
+const STOCK_PURCAHSE_ERROR = 'STOCK_PURCAHSE_ERROR';
 
 /**
  * INITIAL STATE
@@ -22,15 +23,15 @@ const getTransaction = transaction => ({
   type: GET_USER_TRANSACTION,
   transaction,
 });
-// const createTransaction = (ticker, shares) => ({
-//   type: CREATE_NEW_TRANSACTION,
-//   ticker,
-//   shares,
-// });
 
 const combineToPortfolio = arr => ({
   type: COMBINE_TRANSACTIONS,
   combinedTransactions: arr,
+});
+
+const stockPurchaseError = obj => ({
+  type: STOCK_PURCAHSE_ERROR,
+  error: obj,
 });
 
 const combineTransactions = transactionHistory => {
@@ -78,13 +79,13 @@ export const createNewTransaction = (
       userId,
     });
     const { purchasePrice } = res.data;
-    console.log('in store', purchasePrice);
     const amount = res.data.shares;
     const cost = (amount * purchasePrice) / 10000;
     dispatch(updateUserFunds(cost));
     dispatch(getUserTransaction(userId));
-  } catch (error) {
-    console.error(error);
+  } catch (stockError) {
+    console.log('fuck', stockError);
+    dispatch(stockPurchaseError({ error: stockError }));
   }
 };
 
@@ -102,6 +103,8 @@ export default function(state = defaultTransaction, action) {
       };
     case COMBINE_TRANSACTIONS:
       return { ...state, portfolio: action.combinedTransactions };
+    case STOCK_PURCAHSE_ERROR:
+      return { ...state, error: action.error };
     default:
       return state;
   }
