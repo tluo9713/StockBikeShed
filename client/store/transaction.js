@@ -80,7 +80,7 @@ export const createNewTransaction = (
     });
     const { purchasePrice } = res.data;
     const amount = res.data.shares;
-    const cost = (amount * purchasePrice) / 10000;
+    const cost = amount * purchasePrice;
     dispatch(updateUserFunds(cost));
     dispatch(getUserTransaction(userId));
   } catch (stockError) {

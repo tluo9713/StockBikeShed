@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  background-color: #c38d9e;
 }
 
 a {
@@ -28,3 +29,111 @@ nav a :hover {
   margin: 1em;
   display: inline-block;
 } */
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 1000px;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.authform {
+  display: flex;
+  justify-content: center;
+  margin: 200px;
+}
+.welcome {
+  display: flex;
+  justify-content: center;
+  margin: 100px;
+}
+.form {
+  border: black;
+  border-style: solid;
+}
+
+.Navbar {
+  width: 98%;
+  height: 10%;
+  top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  background-color: #41b3a3;
+}
+
+.NavbarLogo {
+  justify-self: left;
+}
+
+.Container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Transactioncontainer {
+  margin-top: 10%;
+  flex-direction: column;
+  flex-grow: 3;
+}
+
+.StockContainer {
+  margin-top: 10%;
+  flex-grow: 3;
+}
+
+.PurchaseStockComponent {
+  top: 17%;
+  display: flex;
+  flex-direction: column;
+  border-style: solid;
+  position: fixed;
+  right: 0px;
+  width: 400px;
+}
+
+/* .PortfolioPage {
+  margin-top: 5%;
+  display: flex;
+} */
+
+/* .stocks {
+  border-style: solid;
+  flex-grow: 3;
+} */
+
+/* .purchaseContainer {
+  width: 400px;
+  right: 0px;
+} */
+
+/* .PurchaseStockComponent {
+  top: 15%;
+  border-style: solid;
+  position: fixed;
+  right: 0px;
+  flex-grow: 1;
+} */
+
+.gain {
+  color: green;
+}
+
+.neutral {
+  color: gray;
+}
+
+.loss {
+  color: red;
+}

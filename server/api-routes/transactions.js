@@ -5,25 +5,30 @@ const axios = require('axios');
 //We want to have routes to be able to grab user info. Such as when they sign in they should be able to see their funds and also edit their information.
 
 //Grab all tranactions, for testing purposes. If planning on keeping this, may need to have some authentication.
-router.get('/', async (req, res, next) => {
-  try {
-    const allTransactions = await Transaction.findAll();
-    res.status(200).json(allTransactions);
-  } catch (error) {
-    next(error);
-  }
-});
+// router.get('/', async (req, res, next) => {
+//   try {
+//     const allTransactions = await Transaction.findAll();
+//     res.status(200).json(allTransactions);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
 //Grabs a user by their ID. will definitely need to have some security authentication.
 router.get('/:id', async (req, res, next) => {
   const id = req.params.id;
-  try {
-    const userTransactions = await Transaction.findAll({
-      where: { userId: id },
-    });
-    res.status(200).json(userTransactions);
-  } catch (error) {
-    next(error);
+  if (req.session.userId == id) {
+    try {
+      const userTransactions = await Transaction.findAll({
+        where: { userId: id },
+      });
+      res.status(200).json(userTransactions);
+    } catch (error) {
+      next(error);
+    }
+  } else {
+    let err = new Error('You do not have access to this information');
+    next(err);
   }
 });
 
@@ -44,7 +49,7 @@ router.post('/', async (req, res, next) => {
   const url = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=';
   // let topSecretApiKey = 'YIEAB87E08BESE7W';
   let topSecretApiKey = 'CR3X96U8FXI8JOAM';
-
+  // let topSecretApiKey = 'TLQHMXV8OQTWNSOV';
   try {
     if (shares % 1 != 0) {
       let error = new Error(`You can only purchase whole number quantities`);

@@ -28,10 +28,11 @@ class SignUpPage extends React.Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <div>
-        <h1>Login page</h1>
-        <form onSubmit={handleSubmit}>
+      <div className="authform">
+        <form className="form" onSubmit={handleSubmit}>
           <div>
+            <h1>Login page</h1>
+
             <label>
               First Name:
               <input

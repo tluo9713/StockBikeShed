@@ -9,11 +9,23 @@ const Portfolio = props => {
     portfolioArray = props.transaction.portfolio;
   }
   return (
-    <div>
-      {portfolioArray.map(stock => (
-        <PortfolioStock key={stock[0]} name={stock[0]} amount={stock[1]} />
-      ))}
-      <PurchaseStocks />
+    <div className="PortfolioPage">
+      <table className="StockContainer">
+        <tr>
+          <th>Ticker</th>
+          <th>Quantity</th>
+          <th>Current Quote</th>
+          <th>Evaluation</th>
+          <th>Change</th>
+          <th>Refresh Quote</th>
+        </tr>
+        {portfolioArray.map(stock => (
+          <PortfolioStock key={stock[0]} name={stock[0]} amount={stock[1]} />
+        ))}
+      </table>
+      <div className="purchaseContainer">
+        <PurchaseStocks />
+      </div>
     </div>
   );
 };

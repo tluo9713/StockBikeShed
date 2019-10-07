@@ -23,11 +23,11 @@ class SignInPage extends React.Component {
     if (this.props.user) {
       error = this.props.user.error;
     }
-    console.log('login', this.props.user);
     return (
-      <div>
-        <h1>Login page</h1>
-        <form onSubmit={handleSubmit} name={name}>
+      <div className="authform">
+        <form className="form" onSubmit={handleSubmit} name={name}>
+          <h1>Login page</h1>
+
           <div>
             <label>
               UserName:
