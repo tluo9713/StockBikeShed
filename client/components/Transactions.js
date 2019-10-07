@@ -10,10 +10,17 @@ const Transactions = props => {
   }
 
   return (
-    <div>
-      {transactions.map((transaction, index) => (
-        <TransactionStocks key={index} transaction={transaction} />
-      ))}
+    <div className="Container">
+      <div className="Transactioncontainer">
+        {transactions.length
+          ? transactions.map((transaction, index) => (
+              <TransactionStocks key={index} transaction={transaction} />
+            ))
+          : 'No transactions yet'}
+      </div>
+      <div>
+        <div className="PurchaseStockComponent"></div>
+      </div>
     </div>
   );
 };

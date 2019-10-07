@@ -32,7 +32,7 @@ class PurchaseStocks extends React.Component {
       console.log(error);
     }
     return (
-      <div>
+      <div className="PurchaseStockComponent">
         <div key={'funds'}>{funds ? <h2>Cash Money : ${funds}</h2> : ''}</div>
 
         <form onSubmit={handleSubmit} name={name}>

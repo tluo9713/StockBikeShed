@@ -20,18 +20,19 @@ class PortfolioStock extends React.Component {
       const currentPrice = res.data['Global Quote']['05. price'];
       const openPrice = res.data['Global Quote']['02. open'];
       let stockPerformance;
-      if (currentPrice === openPrice) {
-        stockPerformance = 'No Change';
-      } else if (currentPrice > openPrice) {
-        stockPerformance = 'Net Gain';
+      const diff = Number.parseFloat(currentPrice - openPrice).toFixed(2);
+      if (diff === 0) {
+        stockPerformance = 'neutral';
+      } else if (diff > 0) {
+        stockPerformance = 'gain';
       } else {
-        stockPerformance = 'Net Loss';
+        stockPerformance = 'loss';
       }
-      console.log('open', openPrice);
       this.setState({
         stock: Number.parseFloat(currentPrice).toFixed(2),
         status: stockPerformance,
         loaded: true,
+        diff,
       });
     } catch (error) {
       console.error(error);
@@ -43,17 +44,18 @@ class PortfolioStock extends React.Component {
     const { grabCurrentData } = this.props;
 
     return (
-      <div>
+      <div className="stocks">
         <h1>Name: {name}</h1>
         <h2>amount: {amount}</h2>
         {this.state.loaded ? (
           <div>
             <h1>Current: {this.state.stock}</h1>
-            <h1>
+            <h1 className={this.state.status}>
               Evaluation: $
               {Number.parseFloat(this.state.stock * amount).toFixed(2)}
+              {'daily change: $'}
+              {this.state.diff}
             </h1>
-            <h1>{this.state.status}</h1>
           </div>
         ) : (
           <h1>

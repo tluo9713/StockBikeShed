@@ -98,87 +98,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_NavBar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/NavBar */ "./client/components/NavBar.js");
-/* harmony import */ var _components_HomePage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/HomePage */ "./client/components/HomePage.js");
-/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./routes */ "./client/routes.js");
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./routes */ "./client/routes.js");
  // import { ToastContainer, toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 
 
 
 
-
 var App = function App() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_NavBar__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_HomePage__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_routes__WEBPACK_IMPORTED_MODULE_3__["default"], null));
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_NavBar__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_routes__WEBPACK_IMPORTED_MODULE_2__["default"], null));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
-
-/***/ }),
-
-/***/ "./client/components/HomePage.js":
-/*!***************************************!*\
-  !*** ./client/components/HomePage.js ***!
-  \***************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return HomePage; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-
-
-var HomePage =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(HomePage, _React$Component);
-
-  function HomePage() {
-    _classCallCheck(this, HomePage);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(HomePage).call(this));
-  } //testing feature for getting persistent user
-  // async handleSubmit() {
-  //   let jesus = await axios.get('/api/users/');
-  //   // let christ = await axios.get('/api/users');
-  //   console.log(jesus);
-  //   // console.log(christ);
-  // }
-
-
-  _createClass(HomePage, [{
-    key: "render",
-    value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "HI I'm just starting!"));
-    }
-  }]);
-
-  return HomePage;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-
 
 /***/ }),
 
@@ -255,11 +186,13 @@ function (_React$Component) {
         error = this.props.user.error;
       }
 
-      console.log('login', this.props.user);
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Login page"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "authform"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "form",
         onSubmit: handleSubmit,
         name: name
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "UserName:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Login page"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "UserName:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         name: "username",
         value: this.state.username,
@@ -321,7 +254,11 @@ __webpack_require__.r(__webpack_exports__);
 var NavBar = function NavBar(props) {
   var isLoggedIn = props.isLoggedIn,
       handleClick = props.handleClick;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, isLoggedIn ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "NAVBAR", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, isLoggedIn ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "Navbar"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "NavbarLogo"
+  }, " Stonks! "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/profile"
   }, "Profile"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/portfolio"
@@ -329,13 +266,15 @@ var NavBar = function NavBar(props) {
     to: "/transaction"
   }, "Transaction History"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     onClick: handleClick
-  }, " Logout")) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "NAVBAR", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-    to: "/profile"
-  }, "Profile"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+  }, " Logout"))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "Navbar"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "NavbarLogo"
+  }, " Stonks! "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/signup"
   }, "Sign Up"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/login"
-  }, "Log In")));
+  }, "Log In"))));
 };
 
 var mapState = function mapState(state) {
@@ -384,13 +323,19 @@ var Portfolio = function Portfolio(props) {
     portfolioArray = props.transaction.portfolio;
   }
 
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, portfolioArray.map(function (stock) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "PortfolioPage"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "StockContainer"
+  }, portfolioArray.map(function (stock) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PortfolioStock__WEBPACK_IMPORTED_MODULE_1__["default"], {
       key: stock[0],
       name: stock[0],
       amount: stock[1]
     });
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PurchaseStocks__WEBPACK_IMPORTED_MODULE_3__["default"], null));
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "purchaseContainer"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PurchaseStocks__WEBPACK_IMPORTED_MODULE_3__["default"], null)));
 };
 
 var mapState = function mapState(state) {
@@ -461,7 +406,7 @@ function (_React$Component) {
     _asyncToGenerator(
     /*#__PURE__*/
     regeneratorRuntime.mark(function _callee() {
-      var name, url, topSecretApiKey, res, currentPrice, openPrice, stockPerformance;
+      var name, url, topSecretApiKey, res, currentPrice, openPrice, stockPerformance, diff;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -478,21 +423,21 @@ function (_React$Component) {
               res = _context.sent;
               currentPrice = res.data['Global Quote']['05. price'];
               openPrice = res.data['Global Quote']['02. open'];
+              diff = Number.parseFloat(currentPrice - openPrice).toFixed(2);
 
-              if (currentPrice === openPrice) {
-                stockPerformance = 'No Change';
-              } else if (currentPrice > openPrice) {
-                stockPerformance = 'Net Gain';
+              if (diff === 0) {
+                stockPerformance = 'neutral';
+              } else if (diff > 0) {
+                stockPerformance = 'gain';
               } else {
-                stockPerformance = 'Net Loss';
+                stockPerformance = 'loss';
               }
-
-              console.log('open', openPrice);
 
               _this.setState({
                 stock: Number.parseFloat(currentPrice).toFixed(2),
                 status: stockPerformance,
-                loaded: true
+                loaded: true,
+                diff: diff
               });
 
               _context.next = 18;
@@ -551,7 +496,11 @@ function (_React$Component) {
           name = _this$props.name,
           amount = _this$props.amount;
       var grabCurrentData = this.props.grabCurrentData;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Name: ", name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "amount: ", amount), this.state.loaded ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Current: ", this.state.stock), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Evaluation: $", Number.parseFloat(this.state.stock * amount).toFixed(2)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, this.state.status)) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Loading (We are using a free API and are throttled by the amount of calls we can make, please refresh data again shortly"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "stocks"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Name: ", name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "amount: ", amount), this.state.loaded ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Current: ", this.state.stock), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+        className: this.state.status
+      }, "Evaluation: $", Number.parseFloat(this.state.stock * amount).toFixed(2), 'daily change: $', this.state.diff)) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Loading (We are using a free API and are throttled by the amount of calls we can make, please refresh data again shortly"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         onClick: grabCurrentData
       }, "Refresh Data"));
     }
@@ -737,7 +686,9 @@ function (_React$Component) {
         console.log(error);
       }
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "PurchaseStockComponent"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         key: 'funds'
       }, funds ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Cash Money : $", funds) : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: handleSubmit,
@@ -866,9 +817,12 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       var handleSubmit = this.props.handleSubmit;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Login page"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "authform"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "form",
         onSubmit: handleSubmit
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "First Name:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Login page"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "First Name:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         name: "firstName",
         value: this.state.firstName,
@@ -971,7 +925,9 @@ var TransactionStocks = function TransactionStocks(props) {
       purchasePrice = _props$transaction.purchasePrice,
       createdAt = _props$transaction.createdAt;
   var time = Date(Date.parse(createdAt));
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Name: ", ticker), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "shares: ", shares), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Price point: $", Number.parseFloat(purchasePrice / 100000).toFixed(2)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Time : ", time), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Total payment: ", shares * purchasePrice / 100));
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "stocks"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Ticker Name: ", ticker), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Shares Purchased: ", shares), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Purchase Price: $", Number.parseFloat(purchasePrice / 100000).toFixed(2)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Total payment: $", Number.parseFloat(shares * purchasePrice / 100000).toFixed(2)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Time : ", time));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (TransactionStocks);
@@ -1003,12 +959,18 @@ var Transactions = function Transactions(props) {
     transactions = props.transaction.transactionHistory.reverse();
   }
 
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, transactions.map(function (transaction, index) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "Container"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "Transactioncontainer"
+  }, transactions.length ? transactions.map(function (transaction, index) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TransactionStocks__WEBPACK_IMPORTED_MODULE_1__["default"], {
       key: index,
       transaction: transaction
     });
-  }));
+  }) : 'No transactions yet'), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "PurchaseStockComponent"
+  })));
 };
 
 var mapState = function mapState(state) {
@@ -1578,7 +1540,7 @@ var createNewTransaction = function createNewTransaction(ticker, shares, userId)
                 res = _context2.sent;
                 purchasePrice = res.data.purchasePrice;
                 amount = res.data.shares;
-                cost = amount * purchasePrice / 10000;
+                cost = amount * purchasePrice;
                 dispatch(Object(_funds__WEBPACK_IMPORTED_MODULE_1__["updateUserFunds"])(cost));
                 dispatch(getUserTransaction(userId));
                 _context2.next = 15;
@@ -45439,7 +45401,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

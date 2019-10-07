@@ -8,19 +8,22 @@ const NavBar = props => {
   return (
     <div>
       {isLoggedIn ? (
-        <div>
-          NAVBAR
-          <Link to="/profile">Profile</Link>
-          <Link to="/portfolio">Portfolio</Link>
-          <Link to="/transaction">Transaction History</Link>
-          <button onClick={handleClick}> Logout</button>
+        <div className="Navbar">
+          <div className="NavbarLogo"> Stonks! </div>
+          <div>
+            <Link to="/profile">Profile</Link>
+            <Link to="/portfolio">Portfolio</Link>
+            <Link to="/transaction">Transaction History</Link>
+            <button onClick={handleClick}> Logout</button>
+          </div>
         </div>
       ) : (
-        <div>
-          NAVBAR
-          <Link to="/profile">Profile</Link>
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/login">Log In</Link>
+        <div className="Navbar">
+          <div className="NavbarLogo"> Stonks! </div>
+          <div>
+            <Link to="/signup">Sign Up</Link>
+            <Link to="/login">Log In</Link>
+          </div>
         </div>
       )}
     </div>
