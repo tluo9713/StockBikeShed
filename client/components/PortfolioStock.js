@@ -27,8 +27,9 @@ class PortfolioStock extends React.Component {
       } else {
         stockPerformance = 'Net Loss';
       }
+      console.log('open', openPrice);
       this.setState({
-        stock: currentPrice,
+        stock: Number.parseFloat(currentPrice).toFixed(2),
         status: stockPerformance,
         loaded: true,
       });
@@ -48,7 +49,10 @@ class PortfolioStock extends React.Component {
         {this.state.loaded ? (
           <div>
             <h1>Current: {this.state.stock}</h1>
-            <h1>Evaluation: {this.state.stock * amount}</h1>
+            <h1>
+              Evaluation: $
+              {Number.parseFloat(this.state.stock * amount).toFixed(2)}
+            </h1>
             <h1>{this.state.status}</h1>
           </div>
         ) : (

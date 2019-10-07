@@ -78,8 +78,9 @@ export const createNewTransaction = (
       userId,
     });
     const { purchasePrice } = res.data;
+    console.log('in store', purchasePrice);
     const amount = res.data.shares;
-    const cost = amount * purchasePrice;
+    const cost = (amount * purchasePrice) / 10000;
     dispatch(updateUserFunds(cost));
     dispatch(getUserTransaction(userId));
   } catch (error) {

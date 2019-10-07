@@ -101,18 +101,18 @@ const mapState = state => ({
 
 const mapDispatch = (dispatch, ownProps) => {
   return {
-    handleSubmit(evt) {
+    async handleSubmit(evt) {
       evt.preventDefault();
       const firstName = evt.target[0].value;
       const lastName = evt.target[1].value;
       const email = evt.target[2].value;
       const password = evt.target[3].value;
 
-      dispatch(signUpUser(firstName, lastName, email, password, 'signup')).then(
-        () => {
-          ownProps.history.push('/profile');
-        }
+      await dispatch(
+        signUpUser(firstName, lastName, email, password, 'signup')
       );
+
+      ownProps.history.push('/profile');
     },
   };
 };

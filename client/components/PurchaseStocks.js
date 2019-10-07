@@ -18,7 +18,7 @@ class PurchaseStocks extends React.Component {
     let funds;
     const userId = this.props.user.id;
     if (userId) {
-      funds = this.props.funds;
+      funds = Number.parseFloat(this.props.funds / 100000).toFixed(2);
     }
     let { transact } = this.props;
     let handleSubmit;
@@ -27,7 +27,7 @@ class PurchaseStocks extends React.Component {
     }
     return (
       <div>
-        <div key={'funds'}>{funds ? <h2>Cash Money : {funds}</h2> : ''}</div>
+        <div key={'funds'}>{funds ? <h2>Cash Money : ${funds}</h2> : ''}</div>
 
         <form onSubmit={handleSubmit} name={name}>
           <div>

@@ -248,9 +248,14 @@ function (_React$Component) {
   _createClass(SignInPage, [{
     key: "render",
     value: function render() {
-      var _this$props = this.props,
-          handleSubmit = _this$props.handleSubmit,
-          error = _this$props.error;
+      var handleSubmit = this.props.handleSubmit;
+      var error;
+
+      if (this.props.user) {
+        error = this.props.user.error;
+      }
+
+      console.log('login', this.props.user);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Login page"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: handleSubmit,
         name: name
@@ -482,26 +487,28 @@ function (_React$Component) {
                 stockPerformance = 'Net Loss';
               }
 
+              console.log('open', openPrice);
+
               _this.setState({
-                stock: currentPrice,
+                stock: Number.parseFloat(currentPrice).toFixed(2),
                 status: stockPerformance,
                 loaded: true
               });
 
-              _context.next = 17;
+              _context.next = 18;
               break;
 
-            case 14:
-              _context.prev = 14;
+            case 15:
+              _context.prev = 15;
               _context.t0 = _context["catch"](4);
               console.error(_context.t0);
 
-            case 17:
+            case 18:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[4, 14]]);
+      }, _callee, null, [[4, 15]]);
     })));
 
     _this.state = {
@@ -544,7 +551,7 @@ function (_React$Component) {
           name = _this$props.name,
           amount = _this$props.amount;
       var grabCurrentData = this.props.grabCurrentData;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Name: ", name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "amount: ", amount), this.state.loaded ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Current: ", this.state.stock), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Evaluation: ", this.state.stock * amount), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, this.state.status)) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Loading (We are using a free API and are throttled by the amount of calls we can make, please refresh data again shortly"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Name: ", name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "amount: ", amount), this.state.loaded ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Current: ", this.state.stock), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Evaluation: $", Number.parseFloat(this.state.stock * amount).toFixed(2)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, this.state.status)) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Loading (We are using a free API and are throttled by the amount of calls we can make, please refresh data again shortly"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         onClick: grabCurrentData
       }, "Refresh Data"));
     }
@@ -712,7 +719,7 @@ function (_React$Component) {
       var userId = this.props.user.id;
 
       if (userId) {
-        funds = this.props.funds;
+        funds = Number.parseFloat(this.props.funds / 100000).toFixed(2);
       }
 
       var transact = this.props.transact;
@@ -724,7 +731,7 @@ function (_React$Component) {
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         key: 'funds'
-      }, funds ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Cash Money : ", funds) : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      }, funds ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Cash Money : $", funds) : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: handleSubmit,
         name: name
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Ticker Name:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -782,6 +789,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _store_user__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/user */ "./client/store/user.js");
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -891,16 +902,40 @@ var mapState = function mapState(state) {
 
 var mapDispatch = function mapDispatch(dispatch, ownProps) {
   return {
-    handleSubmit: function handleSubmit(evt) {
-      evt.preventDefault();
-      var firstName = evt.target[0].value;
-      var lastName = evt.target[1].value;
-      var email = evt.target[2].value;
-      var password = evt.target[3].value;
-      dispatch(Object(_store_user__WEBPACK_IMPORTED_MODULE_2__["signUpUser"])(firstName, lastName, email, password, 'signup')).then(function () {
-        ownProps.history.push('/profile');
-      });
-    }
+    handleSubmit: function () {
+      var _handleSubmit = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee(evt) {
+        var firstName, lastName, email, password;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                evt.preventDefault();
+                firstName = evt.target[0].value;
+                lastName = evt.target[1].value;
+                email = evt.target[2].value;
+                password = evt.target[3].value;
+                _context.next = 7;
+                return dispatch(Object(_store_user__WEBPACK_IMPORTED_MODULE_2__["signUpUser"])(firstName, lastName, email, password, 'signup'));
+
+              case 7:
+                ownProps.history.push('/profile');
+
+              case 8:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      function handleSubmit(_x) {
+        return _handleSubmit.apply(this, arguments);
+      }
+
+      return handleSubmit;
+    }()
   };
 };
 
@@ -928,7 +963,7 @@ var TransactionStocks = function TransactionStocks(props) {
       purchasePrice = _props$transaction.purchasePrice,
       createdAt = _props$transaction.createdAt;
   var time = Date(Date.parse(createdAt));
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Name: ", ticker), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "shares: ", shares), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Price point: ", purchasePrice / 100), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Time : ", time), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Total payment: ", shares * purchasePrice / 100));
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Name: ", ticker), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "shares: ", shares), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Price point: $", Number.parseFloat(purchasePrice / 100000).toFixed(2)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Time : ", time), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Total payment: ", shares * purchasePrice / 100));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (TransactionStocks);
@@ -1044,11 +1079,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store */ "./client/store/index.js");
-/* harmony import */ var _components_LogInPage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/LogInPage */ "./client/components/LogInPage.js");
-/* harmony import */ var _components_SignUpPage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/SignUpPage */ "./client/components/SignUpPage.js");
-/* harmony import */ var _components_Transactions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/Transactions */ "./client/components/Transactions.js");
-/* harmony import */ var _components_Porfolio__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/Porfolio */ "./client/components/Porfolio.js");
-/* harmony import */ var _components_ProfilePage__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/ProfilePage */ "./client/components/ProfilePage.js");
+/* harmony import */ var _components_SignUpPage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/SignUpPage */ "./client/components/SignUpPage.js");
+/* harmony import */ var _components_Transactions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Transactions */ "./client/components/Transactions.js");
+/* harmony import */ var _components_Porfolio__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/Porfolio */ "./client/components/Porfolio.js");
+/* harmony import */ var _components_ProfilePage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/ProfilePage */ "./client/components/ProfilePage.js");
+/* harmony import */ var _components_LogInPage__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/LogInPage */ "./client/components/LogInPage.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1070,7 +1105,6 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
- // import {Login, Signup, UserHome} from './components'
 
 
 
@@ -1101,22 +1135,26 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      // const { isLoggedIn } = this.props;
+      var isLoggedIn = this.props.isLoggedIn;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/login",
-        component: _components_LogInPage__WEBPACK_IMPORTED_MODULE_5__["default"]
+        component: _components_LogInPage__WEBPACK_IMPORTED_MODULE_9__["default"]
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/signup",
-        component: _components_SignUpPage__WEBPACK_IMPORTED_MODULE_6__["default"]
+        component: _components_SignUpPage__WEBPACK_IMPORTED_MODULE_5__["default"]
+      }), isLoggedIn && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        path: "/profile",
+        component: _components_ProfilePage__WEBPACK_IMPORTED_MODULE_8__["default"]
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/portfolio",
-        component: _components_Porfolio__WEBPACK_IMPORTED_MODULE_8__["default"]
+        component: _components_Porfolio__WEBPACK_IMPORTED_MODULE_7__["default"]
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/transaction",
-        component: _components_Transactions__WEBPACK_IMPORTED_MODULE_7__["default"]
+        component: _components_Transactions__WEBPACK_IMPORTED_MODULE_6__["default"]
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        component: _components_LogInPage__WEBPACK_IMPORTED_MODULE_9__["default"]
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-        path: "/profile",
-        component: _components_ProfilePage__WEBPACK_IMPORTED_MODULE_9__["default"]
+        component: _components_SignUpPage__WEBPACK_IMPORTED_MODULE_5__["default"]
       }));
     }
   }]);
@@ -1129,9 +1167,10 @@ function (_Component) {
 
 
 var mapState = function mapState(state) {
-  return {// Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
+  return {
+    // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    // isLoggedIn: !!state.user.id,
+    isLoggedIn: !!state.user.id
   };
 };
 
@@ -1149,10 +1188,10 @@ var mapDispatch = function mapDispatch(dispatch) {
 /**
  * PROP TYPES
  */
-
-Routes.propTypes = {// loadInitialData: PropTypes.func.isRequired,
-  // isLoggedIn: PropTypes.bool.isRequired,
-};
+// Routes.propTypes = {
+//   loadInitialData: PropTypes.func.isRequired,
+//   isLoggedIn: PropTypes.bool.isRequired,
+// };
 
 /***/ }),
 
@@ -1219,9 +1258,10 @@ var getUserFunds = function getUserFunds(funds) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                console.log('getting', funds);
                 dispatch(getFunds(funds));
 
-              case 1:
+              case 2:
               case "end":
                 return _context.stop();
             }
@@ -1246,9 +1286,10 @@ var updateUserFunds = function updateUserFunds(funds) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
+                console.log('updating', funds);
                 dispatch(updateFunds(funds));
 
-              case 1:
+              case 2:
               case "end":
                 return _context2.stop();
             }
@@ -1525,24 +1566,25 @@ var createNewTransaction = function createNewTransaction(ticker, shares, userId)
               case 3:
                 res = _context2.sent;
                 purchasePrice = res.data.purchasePrice;
+                console.log('in store', purchasePrice);
                 amount = res.data.shares;
-                cost = amount * purchasePrice;
+                cost = amount * purchasePrice / 10000;
                 dispatch(Object(_funds__WEBPACK_IMPORTED_MODULE_1__["updateUserFunds"])(cost));
                 dispatch(getUserTransaction(userId));
-                _context2.next = 14;
+                _context2.next = 15;
                 break;
 
-              case 11:
-                _context2.prev = 11;
+              case 12:
+                _context2.prev = 12;
                 _context2.t0 = _context2["catch"](0);
                 console.error(_context2.t0);
 
-              case 14:
+              case 15:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 11]]);
+        }, _callee2, null, [[0, 12]]);
       }));
 
       return function (_x2) {
@@ -45379,7 +45421,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

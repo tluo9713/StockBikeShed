@@ -80,55 +80,11 @@ router.post('/login', async (req, res, next) => {
     } else {
       req.session.userId = user.id;
       req.login(user, err => (err ? next(err) : res.json(user)));
-      // res.json(user);
-      // req.login(user, err => (err ? next(err) : res.json(user)));
-
-      // res.json(user);
     }
   } catch (err) {
     next(err);
   }
 });
-
-// router.post('/login', async (req, res, next) => {
-//   const { email, password } = req.body;
-//   console.log('fuck yes', email, password);
-//   try {
-//     const returnedUser = await User.findOne({
-//       where: { email: req.body.email },
-//     });
-
-//     if (!user) {
-//             console.log('No such user found:', req.body.email);
-//             res.status(401).send('Wrong username and/or password');
-//           } else if (!user.correctPassword(req.body.password)) {
-//             console.log('Incorrect password for user:', req.body.email);
-//             res.status(401).send('Wrong username and/or password');
-//           } else {
-//             req.login(user, err => (err ? next(err) : res.json(user)));
-
-//             // res.json(user);
-//           }
-//         } catch (err) {
-//           next(err);
-//         }
-
-//     console.log('returneduser', returnedUser);
-//     if (returnedUser) {
-//       req.session.userId = returnedUser.id;
-//       req.login(returnedUser, err =>
-//         err ? next(err) : res.json(returnedUser)
-//       );
-//       res.json(returnedUser);
-//     } else {
-//       const err = new Error('Incorrect email or password!');
-//       err.status = 401;
-//       next(err);
-//     }
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 
 router.delete('/logout', (req, res, next) => {
   console.log('do we hit this');
