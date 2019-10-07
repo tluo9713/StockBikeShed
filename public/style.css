@@ -29,6 +29,23 @@ nav a :hover {
   display: inline-block;
 } */
 
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 1000px;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
 .authform {
   display: flex;
   justify-content: center;
@@ -60,29 +77,29 @@ nav a :hover {
 }
 
 .Transactioncontainer {
-  display: flex;
+  margin-top: 10%;
   flex-direction: column;
   flex-grow: 3;
-  width: 600px;
+}
+
+.StockContainer {
+  margin-top: 10%;
+  flex-grow: 3;
 }
 
 .PurchaseStockComponent {
-  top: 15%;
+  top: 10%;
+  display: flex;
+  flex-direction: column;
   border-style: solid;
   position: fixed;
   right: 0px;
-  flex-grow: 1000000;
+  width: 400px;
 }
 
 /* .PortfolioPage {
   margin-top: 5%;
   display: flex;
-} */
-
-/* .StockContainer {
-  top: 40%;
-  flex-grow: 3;
-  left: 0px;
 } */
 
 /* .stocks {

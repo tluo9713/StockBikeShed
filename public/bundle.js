@@ -325,9 +325,9 @@ var Portfolio = function Portfolio(props) {
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "PortfolioPage"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
     className: "StockContainer"
-  }, portfolioArray.map(function (stock) {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Ticker"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Quantity"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Current Quote"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Evaluation"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Change"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Refresh Quote")), portfolioArray.map(function (stock) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PortfolioStock__WEBPACK_IMPORTED_MODULE_1__["default"], {
       key: stock[0],
       name: stock[0],
@@ -384,8 +384,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -400,65 +398,10 @@ function (_React$Component) {
     _classCallCheck(this, PortfolioStock);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(PortfolioStock).call(this));
-
-    _defineProperty(_assertThisInitialized(_this), "grabCurrentData",
-    /*#__PURE__*/
-    _asyncToGenerator(
-    /*#__PURE__*/
-    regeneratorRuntime.mark(function _callee() {
-      var name, url, topSecretApiKey, res, currentPrice, openPrice, stockPerformance, diff;
-      return regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              console.log('clicked');
-              name = _this.props.name;
-              url = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=';
-              topSecretApiKey = 'YIEAB87E08BESE7W';
-              _context.prev = 4;
-              _context.next = 7;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(url).concat(name, "&apikey=").concat(topSecretApiKey));
-
-            case 7:
-              res = _context.sent;
-              currentPrice = res.data['Global Quote']['05. price'];
-              openPrice = res.data['Global Quote']['02. open'];
-              diff = Number.parseFloat(currentPrice - openPrice).toFixed(2);
-
-              if (diff === 0) {
-                stockPerformance = 'neutral';
-              } else if (diff > 0) {
-                stockPerformance = 'gain';
-              } else {
-                stockPerformance = 'loss';
-              }
-
-              _this.setState({
-                stock: Number.parseFloat(currentPrice).toFixed(2),
-                status: stockPerformance,
-                loaded: true,
-                diff: diff
-              });
-
-              _context.next = 18;
-              break;
-
-            case 15:
-              _context.prev = 15;
-              _context.t0 = _context["catch"](4);
-              console.error(_context.t0);
-
-            case 18:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, null, [[4, 15]]);
-    })));
-
     _this.state = {
       loaded: false
     };
+    _this.grabCurrentData = _this.grabCurrentData.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -467,20 +410,20 @@ function (_React$Component) {
     value: function () {
       var _componentDidMount = _asyncToGenerator(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee2() {
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      regeneratorRuntime.mark(function _callee() {
+        return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context.prev = _context.next) {
               case 0:
-                _context2.next = 2;
+                _context.next = 2;
                 return this.grabCurrentData();
 
               case 2:
               case "end":
-                return _context2.stop();
+                return _context.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee, this);
       }));
 
       function componentDidMount() {
@@ -490,19 +433,86 @@ function (_React$Component) {
       return componentDidMount;
     }()
   }, {
+    key: "grabCurrentData",
+    value: function () {
+      var _grabCurrentData = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee2(event) {
+        var name, url, topSecretApiKey, res, currentPrice, openPrice, stockPerformance, diff;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (event) {
+                  event.preventDefault();
+                }
+
+                console.log('clicked');
+                name = this.props.name;
+                url = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=';
+                topSecretApiKey = 'YIEAB87E08BESE7W';
+                _context2.prev = 5;
+                _context2.next = 8;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(url).concat(name, "&apikey=").concat(topSecretApiKey));
+
+              case 8:
+                res = _context2.sent;
+                currentPrice = res.data['Global Quote']['05. price'];
+                openPrice = res.data['Global Quote']['02. open'];
+                diff = Number.parseFloat(currentPrice - openPrice).toFixed(2);
+
+                if (diff == 0) {
+                  stockPerformance = 'neutral';
+                } else if (diff > 0) {
+                  stockPerformance = 'gain';
+                } else {
+                  stockPerformance = 'loss';
+                }
+
+                this.setState({
+                  stock: Number.parseFloat(currentPrice).toFixed(2),
+                  status: stockPerformance,
+                  loaded: true,
+                  diff: diff
+                });
+                _context2.next = 19;
+                break;
+
+              case 16:
+                _context2.prev = 16;
+                _context2.t0 = _context2["catch"](5);
+                console.error(_context2.t0);
+
+              case 19:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[5, 16]]);
+      }));
+
+      function grabCurrentData(_x) {
+        return _grabCurrentData.apply(this, arguments);
+      }
+
+      return grabCurrentData;
+    }()
+  }, {
     key: "render",
     value: function render() {
       var _this$props = this.props,
           name = _this$props.name,
           amount = _this$props.amount;
-      var grabCurrentData = this.props.grabCurrentData;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      var grabCurrentData = this.grabCurrentData;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
         className: "stocks"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Name: ", name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "amount: ", amount), this.state.loaded ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Current: ", this.state.stock), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "amount: ", amount), this.state.loaded ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, this.state.stock), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
         className: this.state.status
-      }, "Evaluation: $", Number.parseFloat(this.state.stock * amount).toFixed(2), 'daily change: $', this.state.diff)) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Loading (We are using a free API and are throttled by the amount of calls we can make, please refresh data again shortly"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+      }, "$", Number.parseFloat(this.state.stock * amount).toFixed(2)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        className: this.state.status
+      }, this.state.diff)) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "We are using a free API and are throttled by the amount of calls we can make.Please refresh data again shortly."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: grabCurrentData
-      }, "Refresh Data"));
+      }, "Refresh Data")));
     }
   }]);
 
@@ -679,11 +689,9 @@ function (_React$Component) {
       }
 
       var error;
-      console.log('component', this.props.transaction);
 
       if (this.props.transaction.error) {
         error = this.props.transaction.error.error;
-        console.log(error);
       }
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -693,17 +701,17 @@ function (_React$Component) {
       }, funds ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Cash Money : $", funds) : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: handleSubmit,
         name: name
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Ticker Name:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Ticker Name:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         name: "ticker",
         value: this.state.ticker,
         onChange: this.handleChange
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Stock Amount:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Stock Amount:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         name: "amount",
         value: this.state.amount,
         onChange: this.handleChange
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, " Purchase"))), error && error.response && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, " ", error.response.data, " "));
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, " Purchase")), error && error.response && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, " ", error.response.data, " "));
     }
   }]);
 
@@ -925,9 +933,9 @@ var TransactionStocks = function TransactionStocks(props) {
       purchasePrice = _props$transaction.purchasePrice,
       createdAt = _props$transaction.createdAt;
   var time = Date(Date.parse(createdAt));
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
     className: "stocks"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Ticker Name: ", ticker), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Shares Purchased: ", shares), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Purchase Price: $", Number.parseFloat(purchasePrice / 100000).toFixed(2)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Total payment: $", Number.parseFloat(shares * purchasePrice / 100000).toFixed(2)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Time : ", time));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, ticker), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, shares), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "$", Number.parseFloat(purchasePrice / 100000).toFixed(2)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "$", Number.parseFloat(shares * purchasePrice / 100000).toFixed(2)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, time));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (TransactionStocks);
@@ -959,18 +967,14 @@ var Transactions = function Transactions(props) {
     transactions = props.transaction.transactionHistory.reverse();
   }
 
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "Container"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
     className: "Transactioncontainer"
-  }, transactions.length ? transactions.map(function (transaction, index) {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Ticker"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Shares Purchased"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Purchase Price"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Total Cost"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Date ")), transactions.length ? transactions.map(function (transaction, index) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TransactionStocks__WEBPACK_IMPORTED_MODULE_1__["default"], {
       key: index,
       transaction: transaction
     });
-  }) : 'No transactions yet'), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "PurchaseStockComponent"
-  })));
+  }) : 'No transactions yet'));
 };
 
 var mapState = function mapState(state) {

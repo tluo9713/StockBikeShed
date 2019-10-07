@@ -46,23 +46,6 @@ router.post('/', async (req, res, next) => {
 });
 
 //Will need to create route to edit info. maybe their email, names.
-//Maybe a separate route for adding funds?
-
-router.put('/:id', async (req, res, next) => {
-  const { purchasePrice } = req.body;
-  const id = req.params.id;
-  let { funds } = await User.findByPk(id);
-
-  try {
-    const fundsAfterPurchase = funds - purchasePrice;
-    let user = await User.update(
-      { funds: fundsAfterPurchase },
-      { returning: true, where: { id } }
-    );
-    res.json(user[1]);
-  } catch (error) {
-    next(error);
-  }
-});
+//Maybe a separate route for adding fund
 
 module.exports = router;

@@ -26,26 +26,24 @@ class PurchaseStocks extends React.Component {
       handleSubmit = transact(userId);
     }
     let error;
-    console.log('component', this.props.transaction);
     if (this.props.transaction.error) {
       error = this.props.transaction.error.error;
-      console.log(error);
     }
     return (
       <div className="PurchaseStockComponent">
         <div key={'funds'}>{funds ? <h2>Cash Money : ${funds}</h2> : ''}</div>
 
         <form onSubmit={handleSubmit} name={name}>
+          <label>
+            Ticker Name:
+            <input
+              type="text"
+              name="ticker"
+              value={this.state.ticker}
+              onChange={this.handleChange}
+            />
+          </label>
           <div>
-            <label>
-              Ticker Name:
-              <input
-                type="text"
-                name="ticker"
-                value={this.state.ticker}
-                onChange={this.handleChange}
-              />
-            </label>
             <label>
               Stock Amount:
               <input
@@ -55,8 +53,9 @@ class PurchaseStocks extends React.Component {
                 onChange={this.handleChange}
               />
             </label>
-            <button> Purchase</button>
           </div>
+
+          <button> Purchase</button>
         </form>
         {error && error.response && <div> {error.response.data} </div>}
       </div>

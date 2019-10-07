@@ -5,11 +5,15 @@ class PortfolioStock extends React.Component {
   constructor() {
     super();
     this.state = { loaded: false };
+    this.grabCurrentData = this.grabCurrentData.bind(this);
   }
   async componentDidMount() {
     await this.grabCurrentData();
   }
-  grabCurrentData = async () => {
+  async grabCurrentData(event) {
+    if (event) {
+      event.preventDefault();
+    }
     console.log('clicked');
     const { name } = this.props;
     const url =
@@ -21,7 +25,7 @@ class PortfolioStock extends React.Component {
       const openPrice = res.data['Global Quote']['02. open'];
       let stockPerformance;
       const diff = Number.parseFloat(currentPrice - openPrice).toFixed(2);
-      if (diff === 0) {
+      if (diff == 0) {
         stockPerformance = 'neutral';
       } else if (diff > 0) {
         stockPerformance = 'gain';
@@ -37,34 +41,38 @@ class PortfolioStock extends React.Component {
     } catch (error) {
       console.error(error);
     }
-  };
+  }
 
   render() {
     let { name, amount } = this.props;
-    const { grabCurrentData } = this.props;
+    const { grabCurrentData } = this;
 
     return (
-      <div className="stocks">
-        <h1>Name: {name}</h1>
-        <h2>amount: {amount}</h2>
+      <tr className="stocks">
+        <td>{name}</td>
+        <td>amount: {amount}</td>
         {this.state.loaded ? (
-          <div>
-            <h1>Current: {this.state.stock}</h1>
-            <h1 className={this.state.status}>
-              Evaluation: $
-              {Number.parseFloat(this.state.stock * amount).toFixed(2)}
-              {'daily change: $'}
-              {this.state.diff}
-            </h1>
-          </div>
+          <>
+            <td>{this.state.stock}</td>
+            <td className={this.state.status}>
+              ${Number.parseFloat(this.state.stock * amount).toFixed(2)}
+            </td>
+            <td className={this.state.status}>{this.state.diff}</td>
+          </>
         ) : (
-          <h1>
-            Loading (We are using a free API and are throttled by the amount of
-            calls we can make, please refresh data again shortly
-          </h1>
+          <>
+            <td>
+              We are using a free API and are throttled by the amount of calls
+              we can make.Please refresh data again shortly.
+            </td>
+            <td></td>
+            <td></td>
+          </>
         )}
-        <h1 onClick={grabCurrentData}>Refresh Data</h1>
-      </div>
+        <td>
+          <button onClick={grabCurrentData}>Refresh Data</button>
+        </td>
+      </tr>
     );
   }
 }
