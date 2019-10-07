@@ -729,6 +729,14 @@ function (_React$Component) {
         handleSubmit = transact(userId);
       }
 
+      var error;
+      console.log('component', this.props.transaction);
+
+      if (this.props.transaction.error) {
+        error = this.props.transaction.error.error;
+        console.log(error);
+      }
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         key: 'funds'
       }, funds ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Cash Money : $", funds) : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
@@ -744,7 +752,7 @@ function (_React$Component) {
         name: "amount",
         value: this.state.amount,
         onChange: this.handleChange
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, " Purchase"))));
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, " Purchase"))), error && error.response && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, " ", error.response.data, " "));
     }
   }]);
 
@@ -1447,6 +1455,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var GET_USER_TRANSACTION = 'GET_USER_TRANSACTION';
 var CREATE_NEW_TRANSACTION = 'CREATE_NEW_TRANSACTION';
 var COMBINE_TRANSACTIONS = 'COMBINE_TRANSACTIONS';
+var STOCK_PURCAHSE_ERROR = 'STOCK_PURCAHSE_ERROR';
 /**
  * INITIAL STATE
  */
@@ -1461,17 +1470,19 @@ var getTransaction = function getTransaction(transaction) {
     type: GET_USER_TRANSACTION,
     transaction: transaction
   };
-}; // const createTransaction = (ticker, shares) => ({
-//   type: CREATE_NEW_TRANSACTION,
-//   ticker,
-//   shares,
-// });
-
+};
 
 var combineToPortfolio = function combineToPortfolio(arr) {
   return {
     type: COMBINE_TRANSACTIONS,
     combinedTransactions: arr
+  };
+};
+
+var stockPurchaseError = function stockPurchaseError(obj) {
+  return {
+    type: STOCK_PURCAHSE_ERROR,
+    error: obj
   };
 };
 
@@ -1566,7 +1577,6 @@ var createNewTransaction = function createNewTransaction(ticker, shares, userId)
               case 3:
                 res = _context2.sent;
                 purchasePrice = res.data.purchasePrice;
-                console.log('in store', purchasePrice);
                 amount = res.data.shares;
                 cost = amount * purchasePrice / 10000;
                 dispatch(Object(_funds__WEBPACK_IMPORTED_MODULE_1__["updateUserFunds"])(cost));
@@ -1574,17 +1584,20 @@ var createNewTransaction = function createNewTransaction(ticker, shares, userId)
                 _context2.next = 15;
                 break;
 
-              case 12:
-                _context2.prev = 12;
+              case 11:
+                _context2.prev = 11;
                 _context2.t0 = _context2["catch"](0);
-                console.error(_context2.t0);
+                console.log('fuck', _context2.t0);
+                dispatch(stockPurchaseError({
+                  error: _context2.t0
+                }));
 
               case 15:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 12]]);
+        }, _callee2, null, [[0, 11]]);
       }));
 
       return function (_x2) {
@@ -1618,6 +1631,11 @@ var createNewTransaction = function createNewTransaction(ticker, shares, userId)
     case COMBINE_TRANSACTIONS:
       return _objectSpread({}, state, {
         portfolio: action.combinedTransactions
+      });
+
+    case STOCK_PURCAHSE_ERROR:
+      return _objectSpread({}, state, {
+        error: action.error
       });
 
     default:
@@ -45421,7 +45439,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
