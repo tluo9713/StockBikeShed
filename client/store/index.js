@@ -9,8 +9,9 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import user from './user';
 import transaction from './transaction';
+import funds from './funds';
 
-const reducer = combineReducers({ user, transaction });
+const reducer = combineReducers({ user, transaction, funds });
 import { saveState } from './localStorage';
 
 // What persistedState will be will depend on how we design our state

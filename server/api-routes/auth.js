@@ -14,7 +14,6 @@ router.post('/login', async (req, res, next) => {
       console.log('Incorrect password for user:', req.body.email);
       res.status(401).send('Wrong username and/or password');
     } else {
-      // req.login(user, err => (err ? next(err) : res.json(user)));
       res.json(user);
     }
   } catch (err) {
@@ -25,7 +24,6 @@ router.post('/login', async (req, res, next) => {
 router.post('/signup', async (req, res, next) => {
   let { email, firstName, lastName, password } = req.body;
   try {
-    console.log('email', email);
     const user = await User.create({ email, firstName, lastName, password });
     req.login(user, err => (err ? next(err) : res.json(user)));
   } catch (err) {
@@ -39,11 +37,11 @@ router.post('/signup', async (req, res, next) => {
 
 router.post('/logout', (req, res) => {
   req.logout();
-  req.session.destroy();
+  // req.session.destroy();
   res.redirect('/');
 });
 
+//Might not get to persisting user
 router.get('/me', (req, res) => {
-  console.log('right routes', req.user);
   res.json(req.user);
 });

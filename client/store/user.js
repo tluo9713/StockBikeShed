@@ -1,5 +1,6 @@
 import axios from 'axios';
 // import history from '../history'
+import { getUserFunds } from './funds';
 
 /**
  * ACTION TYPES
@@ -49,6 +50,7 @@ export const signUpUser = (
     return dispatch(getUser({ error: authError }));
   }
   try {
+    dispatch(getUserFunds(res.data.funds));
     dispatch(getUser(res.data));
     // history.push('/home')
   } catch (error) {
@@ -64,6 +66,7 @@ export const auth = (email, password, method) => async dispatch => {
     return dispatch(getUser({ error: authError }));
   }
   try {
+    dispatch(getUserFunds(res.data.funds));
     dispatch(getUser(res.data));
     // history.push('/home')
   } catch (dispatchOrHistoryErr) {

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { updateUserFunds } from './funds';
 // import history from '../history'
 
 /**
@@ -21,12 +22,11 @@ const getTransaction = transaction => ({
   type: GET_USER_TRANSACTION,
   transaction,
 });
-const createTransaction = (user, ticker, quantity) => ({
-  type: CREATE_NEW_TRANSACTION,
-  user,
-  ticker,
-  quantity,
-});
+// const createTransaction = (ticker, shares) => ({
+//   type: CREATE_NEW_TRANSACTION,
+//   ticker,
+//   shares,
+// });
 
 const combineToPortfolio = arr => ({
   type: COMBINE_TRANSACTIONS,
@@ -66,10 +66,22 @@ export const getUserTransaction = id => async dispatch => {
   }
 };
 
-export const createNewTransaction = () => async dispatch => {
+export const createNewTransaction = (
+  ticker,
+  shares,
+  userId
+) => async dispatch => {
   try {
-    const res = await axios.post(`/api/transactions`);
-    dispatch(createTransaction(res.data || defaultTransaction));
+    const res = await axios.post(`/api/transactions`, {
+      ticker,
+      shares,
+      userId,
+    });
+    const { purchasePrice } = res.data;
+    const amount = res.data.shares;
+    const cost = amount * purchasePrice;
+    dispatch(updateUserFunds(cost));
+    dispatch(getUserTransaction(userId));
   } catch (error) {
     console.error(error);
   }
@@ -83,7 +95,10 @@ export default function(state = defaultTransaction, action) {
     case GET_USER_TRANSACTION:
       return { ...state, transactionHistory: action.transaction };
     case CREATE_NEW_TRANSACTION:
-      return { state };
+      return {
+        ...state,
+        recentPurchase: { ticker: action.ticker, shares: action.shares },
+      };
     case COMBINE_TRANSACTIONS:
       return { ...state, portfolio: action.combinedTransactions };
     default:
