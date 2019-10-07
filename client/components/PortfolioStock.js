@@ -18,7 +18,7 @@ class PortfolioStock extends React.Component {
     const { name } = this.props;
     const url =
       'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=';
-    let topSecretApiKey = 'YIEAB87E08BESE7W';
+    let topSecretApiKey = 'U38PY6XXA3QP0MSD';
     try {
       let res = await axios.get(`${url}${name}&apikey=${topSecretApiKey}`);
       const currentPrice = res.data['Global Quote']['05. price'];

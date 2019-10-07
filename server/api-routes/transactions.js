@@ -47,9 +47,7 @@ router.post('/', async (req, res, next) => {
   //will make consolidating same stocks easier.
   ticker = ticker.toUpperCase();
   const url = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=';
-  // let topSecretApiKey = 'YIEAB87E08BESE7W';
-  let topSecretApiKey = 'CR3X96U8FXI8JOAM';
-  // let topSecretApiKey = 'TLQHMXV8OQTWNSOV';
+  let topSecretApiKey = 'U38PY6XXA3QP0MSD';
   try {
     if (shares % 1 != 0) {
       let error = new Error(`You can only purchase whole number quantities`);

@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { logout } from '../store';
 import { Link } from 'react-router-dom';
-import { AppBar, Tabs, Tab } from 'material-ui';
 
 const NavBar = props => {
   let { isLoggedIn, handleClick } = props;
