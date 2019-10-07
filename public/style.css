@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  background-color: #c38d9e;
 }
 
 a {
@@ -51,20 +52,25 @@ tr:nth-child(even) {
   justify-content: center;
   margin: 200px;
 }
+.welcome {
+  display: flex;
+  justify-content: center;
+  margin: 100px;
+}
 .form {
   border: black;
   border-style: solid;
 }
 
 .Navbar {
-  width: 100%;
+  width: 98%;
   height: 10%;
-  top: 0px;
-  left: 0px;
+  top: 10px;
   display: flex;
   justify-content: space-between;
-  /* background-color: red; */
+  align-items: center;
   position: fixed;
+  background-color: #41b3a3;
 }
 
 .NavbarLogo {
@@ -88,7 +94,7 @@ tr:nth-child(even) {
 }
 
 .PurchaseStockComponent {
-  top: 10%;
+  top: 17%;
   display: flex;
   flex-direction: column;
   border-style: solid;

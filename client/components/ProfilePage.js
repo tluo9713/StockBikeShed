@@ -14,17 +14,11 @@ class ProfilePage extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
     return (
       <div>
-        {user.id ? (
-          <div>
-            <h1>You are signed in</h1>
-            <h1>{this.props.user.firstName}</h1>
-          </div>
-        ) : (
-          <h1>NOTLOGGEDIN</h1>
-        )}
+        <div className="welcome">
+          <h1>Welcome {this.props.user.firstName}!</h1>
+        </div>
       </div>
     );
   }
@@ -32,7 +26,6 @@ class ProfilePage extends React.Component {
 
 const mapState = state => ({
   user: state.user,
-  transaction: state.transaction || {},
 });
 
 const mapDispatch = dispatch => {
