@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 const Transactions = props => {
   let { user } = props;
   let transactions = [];
-  if (user.id) {
+  if (props.transaction.transactionHistory) {
     transactions = props.transaction.transactionHistory.reverse();
   }
 

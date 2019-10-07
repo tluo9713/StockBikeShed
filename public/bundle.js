@@ -375,7 +375,7 @@ __webpack_require__.r(__webpack_exports__);
 var Portfolio = function Portfolio(props) {
   var portfolioArray = [];
 
-  if (props.user.id) {
+  if (props.transaction.portfolio) {
     portfolioArray = props.transaction.portfolio;
   }
 
@@ -821,7 +821,7 @@ var Transactions = function Transactions(props) {
   var user = props.user;
   var transactions = [];
 
-  if (user.id) {
+  if (props.transaction.transactionHistory) {
     transactions = props.transaction.transactionHistory.reverse();
   }
 
@@ -960,7 +960,8 @@ function (_Component) {
 
   _createClass(Routes, [{
     key: "componentDidMount",
-    value: function componentDidMount() {// this.props.loadInitialData();
+    value: function componentDidMount() {
+      this.props.loadInitialData();
     }
   }, {
     key: "render",
@@ -1464,12 +1465,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _funds__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./funds */ "./client/store/funds.js");
+/* harmony import */ var _history__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../history */ "./client/history.js");
+/* harmony import */ var _funds__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./funds */ "./client/store/funds.js");
+/* harmony import */ var _transaction__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./transaction */ "./client/store/transaction.js");
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
- // import history from '../history'
+
+
 
 
 /**
@@ -1524,20 +1528,22 @@ var me = function me() {
               case 3:
                 res = _context.sent;
                 dispatch(getUser(res.data || defaultUser));
-                _context.next = 10;
+                dispatch(Object(_funds__WEBPACK_IMPORTED_MODULE_2__["getUserFunds"])(res.data.funds));
+                dispatch(Object(_transaction__WEBPACK_IMPORTED_MODULE_3__["getUserTransaction"])(res.data.id));
+                _context.next = 12;
                 break;
 
-              case 7:
-                _context.prev = 7;
+              case 9:
+                _context.prev = 9;
                 _context.t0 = _context["catch"](0);
                 console.error(_context.t0);
 
-              case 10:
+              case 12:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 7]]);
+        }, _callee, null, [[0, 9]]);
       }));
 
       return function (_x) {
@@ -1581,7 +1587,7 @@ var signUpUser = function signUpUser(firstName, lastName, email, password) {
 
               case 9:
                 try {
-                  dispatch(Object(_funds__WEBPACK_IMPORTED_MODULE_1__["getUserFunds"])(res.data.funds));
+                  dispatch(Object(_funds__WEBPACK_IMPORTED_MODULE_2__["getUserFunds"])(res.data.funds));
                   dispatch(getUser(res.data)); // history.push('/home')
                 } catch (error) {
                   console.error(error);
@@ -1634,7 +1640,7 @@ var auth = function auth(email, password, method) {
 
               case 9:
                 try {
-                  dispatch(Object(_funds__WEBPACK_IMPORTED_MODULE_1__["getUserFunds"])(res.data.funds));
+                  dispatch(Object(_funds__WEBPACK_IMPORTED_MODULE_2__["getUserFunds"])(res.data.funds));
                   dispatch(getUser(res.data)); // history.push('/home')
                 } catch (dispatchOrHistoryErr) {
                   console.error(dispatchOrHistoryErr);
@@ -1665,19 +1671,28 @@ var logout = function logout() {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                try {
-                  // await axios.post('/auth/logout');
-                  dispatch(removeUser()); // history.push('/login')
-                } catch (err) {
-                  console.error(err);
-                }
+                _context4.prev = 0;
+                _context4.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/auth/logout');
 
-              case 1:
+              case 3:
+                console.log(' i am here right');
+                dispatch(removeUser());
+                _history__WEBPACK_IMPORTED_MODULE_1__["default"].push('/login');
+                _context4.next = 11;
+                break;
+
+              case 8:
+                _context4.prev = 8;
+                _context4.t0 = _context4["catch"](0);
+                console.error(_context4.t0);
+
+              case 11:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4);
+        }, _callee4, null, [[0, 8]]);
       }));
 
       return function (_x4) {

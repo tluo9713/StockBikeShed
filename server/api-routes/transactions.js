@@ -42,6 +42,9 @@ router.post('/', async (req, res, next) => {
 
   try {
     let stock = await axios.get(`${url}${ticker}&apikey=${topSecretApiKey}`);
+    // console.log('start');
+    // let test = await axios.get('/api/users');
+    // console.log(test);
     if (stock['data']['Global Quote'] === undefined) {
       let err = new Error('Could not find Stock');
       throw err;
