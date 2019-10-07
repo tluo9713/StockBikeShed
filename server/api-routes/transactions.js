@@ -16,6 +16,7 @@ const axios = require('axios');
 
 //Grabs a user by their ID. will definitely need to have some security authentication.
 router.get('/:id', async (req, res, next) => {
+  console.log('routes', req.session.userId);
   const id = req.params.id;
   if (req.session.userId == id) {
     try {

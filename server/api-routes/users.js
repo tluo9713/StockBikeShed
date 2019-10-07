@@ -39,7 +39,8 @@ router.post('/', async (req, res, next) => {
       firstName,
       lastName,
     });
-    res.status(201).json(newUser);
+    req.session.userId = newUser.id;
+    req.login(newUser, err => (err ? next(err) : res.json(newUser)));
   } catch (error) {
     next(error);
   }
