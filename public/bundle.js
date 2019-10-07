@@ -426,13 +426,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -448,6 +450,60 @@ function (_React$Component) {
     _classCallCheck(this, PortfolioStock);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(PortfolioStock).call(this));
+
+    _defineProperty(_assertThisInitialized(_this), "grabCurrentData",
+    /*#__PURE__*/
+    _asyncToGenerator(
+    /*#__PURE__*/
+    regeneratorRuntime.mark(function _callee() {
+      var name, url, topSecretApiKey, res, currentPrice, openPrice, stockPerformance;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              console.log('clicked');
+              name = _this.props.name;
+              url = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=';
+              topSecretApiKey = 'YIEAB87E08BESE7W';
+              _context.prev = 4;
+              _context.next = 7;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(url).concat(name, "&apikey=").concat(topSecretApiKey));
+
+            case 7:
+              res = _context.sent;
+              currentPrice = res.data['Global Quote']['05. price'];
+              openPrice = res.data['Global Quote']['02. open'];
+
+              if (currentPrice === openPrice) {
+                stockPerformance = 'No Change';
+              } else if (currentPrice > openPrice) {
+                stockPerformance = 'Net Gain';
+              } else {
+                stockPerformance = 'Net Loss';
+              }
+
+              _this.setState({
+                stock: currentPrice,
+                status: stockPerformance,
+                loaded: true
+              });
+
+              _context.next = 17;
+              break;
+
+            case 14:
+              _context.prev = 14;
+              _context.t0 = _context["catch"](4);
+              console.error(_context.t0);
+
+            case 17:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[4, 14]]);
+    })));
+
     _this.state = {
       loaded: false
     };
@@ -459,20 +515,20 @@ function (_React$Component) {
     value: function () {
       var _componentDidMount = _asyncToGenerator(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee() {
-        return regeneratorRuntime.wrap(function _callee$(_context) {
+      regeneratorRuntime.mark(function _callee2() {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                _context.next = 2;
+                _context2.next = 2;
                 return this.grabCurrentData();
 
               case 2:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee, this);
+        }, _callee2, this);
       }));
 
       function componentDidMount() {
@@ -482,74 +538,15 @@ function (_React$Component) {
       return componentDidMount;
     }()
   }, {
-    key: "grabCurrentData",
-    value: function () {
-      var _grabCurrentData = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee2() {
-        var name, url, topSecretApiKey, res, currentPrice, openPrice, stockPerformance;
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                name = this.props.name;
-                url = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=';
-                topSecretApiKey = 'YIEAB87E08BESE7W';
-                _context2.prev = 3;
-                _context2.next = 6;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(url).concat(name, "&apikey=").concat(topSecretApiKey));
-
-              case 6:
-                res = _context2.sent;
-                console.log('portfolio,', res.data['Global Quote']);
-                currentPrice = res.data['Global Quote']['05. price'];
-                openPrice = res.data['Global Quote']['02. open'];
-                console.log('portfolio,1', currentPrice, openPrice);
-
-                if (currentPrice === openPrice) {
-                  stockPerformance = 'No Change';
-                } else if (currentPrice > openPrice) {
-                  stockPerformance = 'Net Gain';
-                } else {
-                  stockPerformance = 'Net Loss';
-                }
-
-                this.setState({
-                  stock: currentPrice,
-                  status: stockPerformance,
-                  loaded: true
-                });
-                _context2.next = 18;
-                break;
-
-              case 15:
-                _context2.prev = 15;
-                _context2.t0 = _context2["catch"](3);
-                console.error(_context2.t0);
-
-              case 18:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this, [[3, 15]]);
-      }));
-
-      function grabCurrentData() {
-        return _grabCurrentData.apply(this, arguments);
-      }
-
-      return grabCurrentData;
-    }()
-  }, {
     key: "render",
     value: function render() {
       var _this$props = this.props,
           name = _this$props.name,
           amount = _this$props.amount;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Name: ", name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "amount: ", amount), this.state.loaded ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Current: ", this.state.stock), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Evaluation: ", this.state.stock * amount), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, this.state.status)) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Loading (We are using a free API and are throttled by the amount of calls we can make, please refresh data again shortly"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        onClick: this.grabCurrentData
-      }, "Refresh"));
+      var grabCurrentData = this.props.grabCurrentData;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Name: ", name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "amount: ", amount), this.state.loaded ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Current: ", this.state.stock), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Evaluation: ", this.state.stock * amount), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, this.state.status)) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Loading (We are using a free API and are throttled by the amount of calls we can make, please refresh data again shortly"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+        onClick: grabCurrentData
+      }, "Refresh Data"));
     }
   }]);
 
@@ -45382,7 +45379,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

@@ -9,17 +9,16 @@ class PortfolioStock extends React.Component {
   async componentDidMount() {
     await this.grabCurrentData();
   }
-  async grabCurrentData() {
+  grabCurrentData = async () => {
+    console.log('clicked');
     const { name } = this.props;
     const url =
       'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=';
     let topSecretApiKey = 'YIEAB87E08BESE7W';
     try {
       let res = await axios.get(`${url}${name}&apikey=${topSecretApiKey}`);
-      console.log('portfolio,', res.data['Global Quote']);
       const currentPrice = res.data['Global Quote']['05. price'];
       const openPrice = res.data['Global Quote']['02. open'];
-      console.log('portfolio,1', currentPrice, openPrice);
       let stockPerformance;
       if (currentPrice === openPrice) {
         stockPerformance = 'No Change';
@@ -36,10 +35,11 @@ class PortfolioStock extends React.Component {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   render() {
     let { name, amount } = this.props;
+    const { grabCurrentData } = this.props;
 
     return (
       <div>
@@ -57,7 +57,7 @@ class PortfolioStock extends React.Component {
             calls we can make, please refresh data again shortly
           </h1>
         )}
-        <button onClick={this.grabCurrentData}>Refresh</button>
+        <h1 onClick={grabCurrentData}>Refresh Data</h1>
       </div>
     );
   }
