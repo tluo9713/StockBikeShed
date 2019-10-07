@@ -63,15 +63,6 @@ router.get('/me', async (req, res, next) => {
   if (!req.session.userId) {
     userNotFound(next);
   }
-  try {
-    const user = await User.findByPk(req.session.userId);
-  } catch (error) {
-    userNotFound(next);
-  }
-  {
-    // .then(user => (user ? res.json(user) : userNotFound(next)))
-    // .catch(next);
-  }
   res.json(req.user || {});
 });
 
