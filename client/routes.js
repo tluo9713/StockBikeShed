@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
-// import {Login, Signup, UserHome} from './components'
 
 import { me } from './store';
 
-import SignInPage from './components/LogInPage';
 import SignUpPage from './components/SignUpPage';
 import Transaction from './components/Transactions';
 import Portfolio from './components/Porfolio';
 import ProfilePage from './components/ProfilePage';
+import LogInPage from './components/LogInPage';
 
 /**
  * COMPONENT
@@ -21,29 +20,24 @@ class Routes extends Component {
   }
 
   render() {
-    // const { isLoggedIn } = this.props;
+    const { isLoggedIn } = this.props;
 
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route path="/login" component={SignInPage} />
+        <Route path="/login" component={LogInPage} />
         <Route path="/signup" component={SignUpPage} />
-        <Route path="/portfolio" component={Portfolio} />
-        <Route path="/transaction" component={Transaction} />
-        <Route path="/profile" component={ProfilePage} />
-
-        {/* <Route exact path="/home" component={Portfolio} /> */}
-        {/* <Route exact path="/products/:id(\d+)" component={TransactionHistory} /> */}
-        {/* isLoggedIn && (
+        {/* You shouldn't access these routes unless you're logged in */}
+        {isLoggedIn && (
           <Switch>
-            {/* <Route exact path="/myprofile" component={MyProfile} /> */}
-        {/* Routes placed here are only available after logging in */}
-        {/* <Route path="/home" component={UserHome} /> */}
-        {/* </Switch> */}
-        {/* ) */}
+            <Route path="/profile" component={ProfilePage} />
+            <Route path="/portfolio" component={Portfolio} />
+            <Route path="/transaction" component={Transaction} />
+          </Switch>
+        )}
         {/* Displays our Login component as a fallback */}
-        {/* <Route component={Login} /> */}
-        {/* <Route component={SignIn} /> */}
+        {<Route component={LogInPage} />}
+        {<Route component={SignUpPage} />}
       </Switch>
     );
   }
@@ -56,7 +50,7 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    // isLoggedIn: !!state.user.id,
+    isLoggedIn: !!state.user.id,
   };
 };
 
@@ -80,7 +74,7 @@ export default withRouter(
 /**
  * PROP TYPES
  */
-Routes.propTypes = {
-  // loadInitialData: PropTypes.func.isRequired,
-  // isLoggedIn: PropTypes.bool.isRequired,
-};
+// Routes.propTypes = {
+//   loadInitialData: PropTypes.func.isRequired,
+//   isLoggedIn: PropTypes.bool.isRequired,
+// };

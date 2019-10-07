@@ -52,8 +52,14 @@ router.post('/', async (req, res, next) => {
       let err = new Error('Could not find Stock');
       throw err;
     }
-    let purchasePrice = stock['data']['Global Quote']['05. price'] * 100;
+    //We want to make sure stock price is an integer or else we will fail
+    //sequelize validations
+    let purchasePrice = parseInt(
+      stock['data']['Global Quote']['05. price'] * 100000
+    );
+
     let userAccount = await User.findByPk(userId);
+
     const fundsAfterPurchase = userAccount.funds - purchasePrice;
     //check if there are enough funds else fail transaction
     if (fundsAfterPurchase < 0) {

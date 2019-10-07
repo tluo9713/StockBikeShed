@@ -22,10 +22,13 @@ const updateFunds = funds => ({ type: UPDATE_FUNDS, funds });
  * THUNK CREATORS
  */
 export const getUserFunds = funds => async dispatch => {
+  console.log('getting', funds);
   dispatch(getFunds(funds));
 };
 
 export const updateUserFunds = funds => async dispatch => {
+  console.log('updating', funds);
+
   dispatch(updateFunds(funds));
 };
 
