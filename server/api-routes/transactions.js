@@ -32,11 +32,14 @@ router.get('/:id', async (req, res, next) => {
 //api key : YIEAB87E08BESE7W
 //keep this a secret!
 router.post('/', async (req, res, next) => {
-  let { ticker, shares, userId } = req.body;
+  //Grab the userId from the req.session. This is to prevent other users from
+  //making requests and purchasing stocks without owner knowledge
+  let { userId } = req.session;
+  //Ticker and shares will be sent from the user side.
+  let { ticker, shares } = req.body;
+  //If by some reason ticker isn't to upper case yet, make it uppercase. This
+  //will make consolidating same stocks easier.
   ticker = ticker.toUpperCase();
-  //WARNING destructuring for user ID but in the future will need to do several things:
-  //check if there are enough funds else fail transaction
-  //grab user id from the request
   const url = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=';
   let topSecretApiKey = 'YIEAB87E08BESE7W';
 
@@ -52,6 +55,7 @@ router.post('/', async (req, res, next) => {
     let purchasePrice = stock['data']['Global Quote']['05. price'] * 100;
     let userAccount = await User.findByPk(userId);
     const fundsAfterPurchase = userAccount.funds - purchasePrice;
+    //check if there are enough funds else fail transaction
     if (fundsAfterPurchase < 0) {
       let err = new Error('Insufficient Funds');
       throw err;

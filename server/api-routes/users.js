@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const User = require('../db/models/user');
-const axios = require('axios');
 
 //We want to have routes to be able to grab user info. Such as when they sign in they should be able to see their funds and also edit their information.
 
@@ -17,11 +16,16 @@ router.get('/', async (req, res, next) => {
 //Grabs a user by their ID. will definitely need to have some security authentication.
 router.get('/:id', async (req, res, next) => {
   const id = req.params.id;
-  try {
-    const user = await User.findByPk(id);
-    res.status(200).json(user);
-  } catch (error) {
-    next(error);
+  if (req.session.userId === Number(id)) {
+    try {
+      const user = await User.findByPk(id);
+      res.status(200).json(user);
+    } catch (error) {
+      next(error);
+    }
+  } else {
+    let err = new Error('You do not have access to this information');
+    next(err);
   }
 });
 
